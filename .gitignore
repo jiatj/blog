@@ -1,0 +1,6 @@
+.next
+node_modules
+out
+dist
+*.log
+content/.sync-manifest.json

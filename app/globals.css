@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+:root {
+  --background: #e4dfd6;
+  --foreground: #1d1f22;
+  --surface: #e3ddd4;
+  --surface-2: #ddd7cd;
+  --surface-3: #d8d1c6;
+  --muted: #d9d2c7;
+  --muted-foreground: #66635d;
+  --muted-foreground-soft: #878178;
+  --border: rgba(108, 101, 92, 0.14);
+  --border-soft: rgba(108, 101, 92, 0.085);
+  --border-faint: rgba(108, 101, 92, 0.05);
+  --card: rgba(228, 221, 212, 0.74);
+  --card-strong: rgba(224, 217, 207, 0.82);
+  --header-surface: rgba(225, 218, 209, 0.82);
+  --hero-surface: rgba(225, 218, 209, 0.78);
+  --accent: #738ca8;
+  --accent-ink: #58728f;
+  --accent-soft: rgba(115, 140, 168, 0.11);
+  --shadow: 0 16px 34px rgba(20, 24, 30, 0.06);
+  --shadow-soft: 0 8px 20px rgba(20, 24, 30, 0.035);
+  --radius-header: 1.35rem;
+  --radius-hero: 1.75rem;
+  --radius-card: 1.2rem;
+  --radius-pill: 999px;
+  --pill-border: color-mix(in srgb, var(--border-faint) 92%, transparent);
+  --pill-border-strong: color-mix(in srgb, var(--border-soft) 96%, transparent);
+  --pill-surface: color-mix(in srgb, var(--surface) 82%, transparent);
+  --pill-surface-active: color-mix(in srgb, var(--accent-soft) 90%, var(--surface));
+  --pill-text: var(--muted-foreground);
+  --pill-text-strong: var(--foreground);
+  --link-underline: color-mix(in srgb, var(--border) 62%, transparent);
+  --link-underline-hover: color-mix(in srgb, var(--accent) 72%, transparent);
+  --font-ui:
+    "Noto Serif SC",
+    "Source Han Serif SC",
+    "Songti SC",
+    "STSong",
+    "SimSun",
+    "Iowan Old Style",
+    "Palatino Linotype",
+    "Times New Roman",
+    serif;
+}
+
+.dark {
+  --background: #14181d;
+  --foreground: #ebe7df;
+  --surface: #192027;
+  --surface-2: #1c242c;
+  --surface-3: #212b34;
+  --muted: #1c232a;
+  --muted-foreground: #bbb6ae;
+  --muted-foreground-soft: #97999c;
+  --border: rgba(167, 183, 201, 0.11);
+  --border-soft: rgba(167, 183, 201, 0.06);
+  --border-faint: rgba(167, 183, 201, 0.03);
+  --card: rgba(24, 31, 38, 0.68);
+  --card-strong: rgba(28, 36, 44, 0.84);
+  --header-surface: rgba(23, 30, 37, 0.68);
+  --hero-surface: rgba(28, 36, 44, 0.75);
+  --accent: #89a1bb;
+  --accent-ink: #c5d2df;
+  --accent-soft: rgba(137, 161, 187, 0.12);
+  --shadow: 0 22px 46px rgba(3, 5, 8, 0.22);
+  --shadow-soft: 0 12px 28px rgba(3, 5, 8, 0.14);
+  --pill-border: color-mix(in srgb, var(--border-faint) 72%, transparent);
+  --pill-border-strong: color-mix(in srgb, var(--border-soft) 78%, transparent);
+  --pill-surface: color-mix(in srgb, var(--surface) 72%, transparent);
+  --pill-surface-active: color-mix(in srgb, var(--accent-soft) 94%, var(--surface));
+  --pill-text: #a9b0b6;
+  --pill-text-strong: var(--foreground);
+  --link-underline: color-mix(in srgb, var(--border-soft) 72%, transparent);
+  --link-underline-hover: color-mix(in srgb, var(--accent) 76%, transparent);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ui);
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent-soft) 78%, transparent);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 70%, white 30%);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.prose {
+  font-size: clamp(1rem, 0.97rem + 0.18vw, 1.08rem);
+  line-height: 2;
+  color: color-mix(in srgb, var(--foreground) 94%, var(--muted-foreground));
+  font-family: var(--font-ui);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  margin-top: 2.8rem;
+  margin-bottom: 0.85rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+
+.prose h2 {
+  font-size: clamp(1.26rem, 1.2rem + 0.28vw, 1.52rem);
+}
+
+.prose h3 {
+  font-size: clamp(1.08rem, 1.03rem + 0.18vw, 1.22rem);
+}
+
+.prose h4 {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose blockquote,
+.prose pre {
+  margin-top: 1.45rem;
+  margin-bottom: 1.45rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.35rem;
+}
+
+.prose li + li {
+  margin-top: 0.62rem;
+}
+
+.prose a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 0.22em;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.prose a:hover {
+  color: var(--accent-ink);
+  text-decoration-color: color-mix(in srgb, var(--accent) 75%, transparent);
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--border);
+  padding-left: 1.1rem;
+  color: var(--muted-foreground);
+}
+
+.prose pre {
+  overflow-x: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+  padding: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.prose code {
+  font-size: 0.92em;
+}
+
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--background);
+}
+
+.route-home {
+  background-image:
+    radial-gradient(circle at 14% 14%, rgba(115, 140, 168, 0.055), transparent 24%),
+    radial-gradient(circle at 82% 20%, rgba(117, 121, 126, 0.035), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 14%),
+    linear-gradient(180deg, #e6e1d8 0%, #ded8ce 100%);
+}
+
+.route-tools {
+  background-image:
+    radial-gradient(circle at 18% 18%, rgba(115, 140, 168, 0.05), transparent 22%),
+    radial-gradient(circle at 80% 72%, rgba(117, 121, 126, 0.038), transparent 22%),
+    linear-gradient(135deg, rgba(228, 221, 212, 0.98), rgba(220, 213, 202, 1));
+}
+
+.route-blog {
+  background-image:
+    radial-gradient(circle at 78% 16%, rgba(115, 140, 168, 0.045), transparent 18%),
+    radial-gradient(circle at 22% 72%, rgba(143, 146, 149, 0.05), transparent 22%),
+    linear-gradient(180deg, rgba(228, 221, 212, 0.98), rgba(219, 212, 201, 1));
+}
+
+.route-about {
+  background-image:
+    radial-gradient(circle at 16% 20%, rgba(115, 140, 168, 0.05), transparent 20%),
+    radial-gradient(circle at 84% 18%, rgba(117, 121, 126, 0.038), transparent 18%),
+    linear-gradient(160deg, rgba(227, 220, 211, 0.99), rgba(218, 211, 200, 0.98));
+}
+
+.dark .route-home {
+  background-image:
+    radial-gradient(circle at 12% 14%, rgba(137, 161, 187, 0.09), transparent 24%),
+    radial-gradient(circle at 86% 22%, rgba(201, 210, 223, 0.03), transparent 18%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 18%),
+    linear-gradient(180deg, rgba(20, 24, 29, 1), rgba(18, 22, 27, 0.99));
+}
+
+.dark .route-tools {
+  background-image:
+    radial-gradient(circle at 18% 16%, rgba(137, 161, 187, 0.1), transparent 22%),
+    radial-gradient(circle at 82% 74%, rgba(167, 183, 201, 0.05), transparent 20%),
+    linear-gradient(135deg, rgba(22, 27, 33, 0.99), rgba(18, 22, 27, 1));
+}
+
+.dark .route-blog {
+  background-image:
+    radial-gradient(circle at 78% 16%, rgba(137, 161, 187, 0.06), transparent 18%),
+    radial-gradient(circle at 24% 78%, rgba(201, 210, 223, 0.03), transparent 22%),
+    linear-gradient(180deg, rgba(21, 25, 30, 1), rgba(18, 22, 27, 0.98));
+}
+
+.dark .route-about {
+  background-image:
+    radial-gradient(circle at 16% 18%, rgba(137, 161, 187, 0.07), transparent 18%),
+    radial-gradient(circle at 84% 18%, rgba(201, 210, 223, 0.03), transparent 16%),
+    linear-gradient(160deg, rgba(22, 27, 33, 1), rgba(18, 22, 27, 0.98));
+}
