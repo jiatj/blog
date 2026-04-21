@@ -4,30 +4,13 @@ import {
   buildSourceFilesFromProviderPayload,
   detectProvider,
   syncContentChanges,
-  verifyWebhookSignature
-} from "@/lib/content-sync";
+  verifyWebhookSignature,
+  type ManualSyncPayload,
+  type ProviderPayload
+} from "@/lib/content-ingest";
+import { revalidateIngestPaths } from "@/lib/content-ingest/revalidate";
 
 export const runtime = "nodejs";
-
-type ProviderPayload = {
-  after?: string;
-  commits?: Array<{
-    added?: string[];
-    modified?: string[];
-    removed?: string[];
-  }>;
-  repository?: Record<string, unknown>;
-};
-
-type ManualSyncPayload = {
-  provider?: "manual";
-  dryRun?: boolean;
-  files?: Array<{
-    path?: string;
-    content?: string;
-  }>;
-  deletedPaths?: string[];
-};
 
 export async function POST(request: Request) {
   try {
@@ -38,22 +21,10 @@ export async function POST(request: Request) {
     const provider = detectProvider(request.headers, payload);
     const dryRun = Boolean(payload.dryRun);
 
-    const changes =
-      provider === "manual"
-        ? {
-            upserts: (payload.files ?? [])
-              .filter((file): file is { path: string; content: string } => {
-                return typeof file.path === "string" && typeof file.content === "string";
-              })
-              .map((file) => ({
-                path: file.path,
-                content: file.content
-              })),
-            deletedPaths: (payload.deletedPaths ?? []).filter(
-              (filePath): filePath is string => typeof filePath === "string"
-            )
-          }
-        : await buildSourceFilesFromProviderPayload(provider, payload as ProviderPayload);
+    const changes = await buildSourceFilesFromProviderPayload(
+      provider,
+      payload as ProviderPayload | ManualSyncPayload
+    );
 
     if (!changes.upserts.length && !changes.deletedPaths.length) {
       return NextResponse.json({
@@ -64,10 +35,10 @@ export async function POST(request: Request) {
       });
     }
 
-    const results = dryRun
+    const execution = dryRun
       ? [
           ...changes.upserts.map((file) => ({
-            sourcePath: file.path,
+            sourcePath: file.sourcePath,
             status: "pending",
             reason: "dryRun enabled for upsert"
           })),
@@ -78,6 +49,8 @@ export async function POST(request: Request) {
           }))
         ]
       : await syncContentChanges(changes);
+    const results = Array.isArray(execution) ? execution : execution.results;
+    const revalidatedPaths = Array.isArray(execution) ? [] : revalidateIngestPaths(execution.invalidations);
 
     return NextResponse.json({
       ok: true,
@@ -91,6 +64,7 @@ export async function POST(request: Request) {
       skipped: results.filter((item) => item.status === "skipped").length,
       notFound: results.filter((item) => item.status === "not_found").length,
       errors: results.filter((item) => item.status === "error").length,
+      revalidatedPaths,
       results
     });
   } catch (error) {

@@ -6,6 +6,8 @@ import { getDictionary } from "@/lib/dictionary";
 import { buildMetadata } from "@/lib/metadata";
 import { locales, type Locale } from "@/lib/site-config";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }

@@ -5,6 +5,9 @@ import { buildMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
 import { locales, type Locale } from "@/lib/site-config";
 
+export const revalidate = 3600;
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const all = await Promise.all(locales.map(async (locale) => ({ locale, posts: await getPosts(locale) })));
   return all.flatMap(({ locale, posts }) => posts.map((post) => ({ locale, slug: post.slug ?? "" })));

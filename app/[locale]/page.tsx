@@ -8,6 +8,8 @@ import { getPosts, getTools } from "@/lib/content";
 import { locales, type Locale } from "@/lib/site-config";
 import { formatDate } from "@/lib/utils";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }

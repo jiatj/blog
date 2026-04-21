@@ -5,6 +5,9 @@ import { getDictionary } from "@/lib/dictionary";
 import { buildMetadata } from "@/lib/metadata";
 import { locales, type Locale } from "@/lib/site-config";
 
+export const revalidate = 3600;
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const all = await Promise.all(locales.map(async (locale) => ({ locale, tools: await getTools(locale) })));
   return all.flatMap(({ locale, tools }) => tools.map((tool) => ({ locale, slug: tool.slug ?? "" })));
