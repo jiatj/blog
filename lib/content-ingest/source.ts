@@ -158,11 +158,29 @@ async function fetchGithubFileBuffer(repository: GithubRepository, ref: string, 
 
   const payload = (await response.json()) as { content?: string; encoding?: string };
 
-  if (payload.encoding !== "base64" || typeof payload.content !== "string") {
+  if (payload.encoding === "base64" && typeof payload.content === "string") {
+    return Buffer.from(payload.content.replace(/\n/g, ""), "base64");
+  }
+
+  const rawResponse = await fetch(url, {
+    headers: {
+      ...githubHeaders(token),
+      Accept: "application/vnd.github.raw"
+    },
+    cache: "no-store"
+  });
+
+  if (!rawResponse.ok) {
+    throw new Error(`GitHub raw content fetch failed for ${filePath}: ${rawResponse.status}`);
+  }
+
+  const rawBuffer = Buffer.from(await rawResponse.arrayBuffer());
+
+  if (!rawBuffer.length) {
     throw new Error(`GitHub content payload is invalid for ${filePath}`);
   }
 
-  return Buffer.from(payload.content.replace(/\n/g, ""), "base64");
+  return rawBuffer;
 }
 
 async function fetchGiteeFileBuffer(repository: GiteeRepository, ref: string, filePath: string) {
