@@ -2,6 +2,8 @@
 
 这是当前 V1 的正式内容建模决定，供后续写作和扩展使用。
 
+课程使用独立模型：每门课程一个 `course.json`，正文位于 `lessons/`，附件位于 `assets/`。发布后存入 `COURSE_CONTENT_DIR` 的版本目录，由当前版本指针读取，不复用 post/tool 的 frontmatter 或导入规则。具体格式、编写与手工发布步骤见 [课程规范](./courses.md)。
+
 ## 1. 目录结构
 
 ```text

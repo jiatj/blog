@@ -40,6 +40,8 @@ export const siteConfig = {
     }
   ],
   nav: [
+    // ABL 教育暂不显示在导航中，原页面路由保留。
+    { href: "/courses", key: "courses" },
     { href: "/tools", key: "tools" },
     { href: "/blog", key: "blog" },
     { href: "/about", key: "about" }

@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
 
 import { getPosts, getTools } from "@/lib/content";
+import { getCourses } from "@/lib/courses/read";
 import { locales, siteConfig } from "@/lib/site-config";
+
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries = locales.flatMap((locale) =>
-    ["", "/blog", "/tools", "/about"].map((path) => ({
+    ["", "/ai-builder-lab", "/blog", "/tools", "/about"].map((path) => ({
       url: `${siteConfig.url}/${locale}${path}`,
       changeFrequency: "weekly" as const,
       priority: path === "" ? 1 : 0.7
@@ -33,5 +36,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
   );
 
-  return [...staticEntries, ...postEntries.flat(), ...toolEntries.flat()];
+  const courses = await getCourses();
+  const courseEntries = courses.flatMap((course) => [
+    { url: `${siteConfig.url}/zh/courses/${course.slug}`, lastModified: new Date(course.publishedAt) },
+    ...course.pages.map((page) => ({ url: `${siteConfig.url}/zh/courses/${course.slug}/${page.slug}`, lastModified: new Date(page.updated) }))
+  ]);
+  return [...staticEntries, ...postEntries.flat(), ...toolEntries.flat(), { url: `${siteConfig.url}/zh/courses` }, ...courseEntries];
 }

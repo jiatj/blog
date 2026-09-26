@@ -5,3 +5,7 @@ dist
 *.log
 content/.sync-manifest.json
 .env
+.env.local
+.course-data/
+.course-incoming/
+*.tsbuildinfo

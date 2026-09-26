@@ -2,7 +2,11 @@
 
 `portal` 是一个基于 `Next.js 16 + App Router` 的个人站点。
 
-当前内容发布链路已经从“webhook 写文件 + 依赖整站重构”调整为：
+当前内容发布链路已经从：
+
+`webhook 写文件 + 依赖整站重构`
+
+调整为：
 
 `ingest 导入 + 资源同步 + 路径改写 + on-demand revalidate`
 
@@ -14,7 +18,29 @@
 - 发布成功后，首页 / 列表 / 详情页会按路径失效缓存
 - 不再把 `build + restart` 作为正式发布机制
 
-## Run
+课程模块的完整写作、目录与手工发布规范见 [课程编写与发布](doc/courses.md)。课程没有管理后台，使用文件与 CLI 维护。
+
+## Development Guide
+
+- 使用 Node.js 24+（课程 CLI 直接运行 TypeScript），在项目根目录执行 `npm ci`。
+- 启动：`npm run dev`；默认访问 `http://localhost:3000`。
+- 类型检查：`npx tsc --noEmit`；课程测试：`npm run test:courses`；构建：`npm run build`。
+- 生产模式验收：先 `npm run start -- --port 3100`，另一个终端运行 `npm run test:courses:http -- http://localhost:3100`。仅针对本机测试服务；会创建并清理独立临时测试课程。
+- 当前 `npm run lint` 沿用旧的 `next lint` 配置，不作为本次验证命令；修复 lint 配置为 TODO。
+- 体验课程示例：`npm run course:check -- ./examples/courses/starter`，再执行 `npm run course:publish -- ./examples/courses/starter`，访问 `/zh/courses`。
+- `.course-data/` 为本地发布数据；原始示例位于 `examples/courses/`。正式 FDE 材料需整理后单独上传。
+
+## Release Guide
+
+1. 首次部署课程功能：`npm ci` → `npm run test:courses` → `npx tsc --noEmit` → `npm run build` → `npm run start`。
+2. 为网站服务与发布命令配置相同的 `COURSE_CONTENT_DIR` 绝对路径，使用持久化可写磁盘；不要把数据放在会随部署替换的代码目录中。
+3. 将完整课程文件夹手工上传到独立待发布目录；在项目根执行 `npm run course:check -- <课程目录>`，通过后执行 `npm run course:publish -- <课程目录>`。课程更新无需重启。
+4. 验证课程目录、讲义、手机布局、明暗主题、图片下载及 `/sitemap.xml`；检查服务重启后课程仍可访问。
+5. 内容回退：`npm run course:rollback -- <课程slug>`；备份整个课程数据目录。代码发布的服务管理、反向代理和代码回滚命令：TODO，仓库尚未提供部署配置。
+
+CLI 不自动读取 `.env` 文件，生产环境变量需在运行命令的 shell 中设置。博客与项目仍沿用下文的 ingest 链路。
+
+### 常用启动命令
 
 ```bash
 npm install
@@ -43,8 +69,8 @@ public/
   tools/
 ```
 
-`content/` 放 portal 可直接消费的最终 `.mdx` 文件。  
-`public/` 放 ingest 复制过来的静态资源。
+- `content/` 放 portal 可直接消费的最终 `.mdx` 文件
+- `public/` 放 ingest 复制过来的静态资源
 
 ## 写作侧约定
 
@@ -103,6 +129,33 @@ summary: ...
 - `status`: ingest 必填。`published` 会落为 `draft: false`，其他值会落为 `draft: true`
 - `cover`: 必须是本地相对路径，例如 `./cover.png`
 - `date` / `updated`: 支持 YAML 日期和字符串日期
+
+## tool 扩展字段
+
+tool 除了 ingest 必填字段，还可以使用这些展示字段：
+
+```yaml
+toolStatus: Beta
+toolUrl: https://example.com/tool
+repoUrl: https://github.com/example/tool
+logo: ST
+homeActionLabel: 查看项目
+homeFeatured: true
+homeOrder: 1
+seoTitle: Settle
+seoDescription: 一个工具说明页
+```
+
+说明：
+
+- `toolStatus`: 工具状态文案
+- `toolUrl`: 工具外链；项目页和卡片入口会用到
+- `repoUrl`: 源码链接
+- `logo`: 项目卡 logo 区域显示文本
+- `homeActionLabel`: 首页 / tools 卡片动作文案
+- `homeFeatured`: 首页是否优先展示
+- `homeOrder`: 首页排序
+- `seoTitle` / `seoDescription`: SEO 字段
 
 ## ingest 发布链路
 

@@ -20,6 +20,18 @@ async function removeDirectoryIfExists(dirPath: string) {
   await fs.rm(dirPath, { recursive: true, force: true });
 }
 
+async function removeSiblingMarkdownVariants(targetPath: string) {
+  const ext = path.extname(targetPath);
+  const withoutExt = targetPath.slice(0, -ext.length);
+  const candidates = [".md", ".mdx"]
+    .map((candidateExt) => `${withoutExt}${candidateExt}`)
+    .filter((candidatePath) => candidatePath !== targetPath);
+
+  for (const candidatePath of candidates) {
+    await removeFileIfExists(candidatePath);
+  }
+}
+
 export async function readManifest(): Promise<SyncManifest> {
   try {
     const raw = await fs.readFile(manifestPath, "utf8");
@@ -59,6 +71,7 @@ export async function persistPortalContent(
   }
 
   await fs.mkdir(path.dirname(unit.targetContentPath), { recursive: true });
+  await removeSiblingMarkdownVariants(unit.targetContentPath);
   await fs.writeFile(unit.targetContentPath, content, "utf8");
 
   const entry: SyncManifestEntry = {

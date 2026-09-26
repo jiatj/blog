@@ -31,8 +31,16 @@ export function SiteShell({ locale, pathname, children }: SiteShellProps) {
       return "route-blog";
     }
 
+    if (normalizedPath.startsWith("/courses")) {
+      return "route-blog";
+    }
+
     if (normalizedPath.startsWith("/about")) {
       return "route-about";
+    }
+
+    if (normalizedPath.startsWith("/ai-builder-lab")) {
+      return "route-abl";
     }
 
     return "route-home";
@@ -65,7 +73,8 @@ export function SiteShell({ locale, pathname, children }: SiteShellProps) {
                               ? "border border-[var(--pill-border-strong)] bg-[var(--pill-surface-active)] text-[var(--pill-text-strong)]"
                               : "border border-transparent text-[color:color-mix(in_srgb,var(--pill-text)_88%,var(--foreground))] hover:bg-[var(--pill-surface-active)] hover:text-[var(--pill-text-strong)]"
                           }`}
-                          href={`/${locale}${item.href}`}
+                          prefetch={item.key === "courses" ? false : undefined}
+                          href={`/${item.key === "courses" ? "zh" : locale}${item.href}`}
                         >
                           {dict.nav[item.key as keyof typeof dict.nav]}
                         </Link>
@@ -73,27 +82,28 @@ export function SiteShell({ locale, pathname, children }: SiteShellProps) {
                     </nav>
                     <div className="h-4 w-px bg-[color:color-mix(in_srgb,var(--pill-border)_82%,transparent)]" />
                     <div className="ml-1 inline-flex items-center gap-0.5">
-                      <LanguageSwitcher locale={locale} pathname={pathname} />
+                      <LanguageSwitcher locale={locale} pathname={currentPath} />
                       <ThemeToggle locale={locale} />
                     </div>
                   </div>
                   <div className="inline-flex items-center gap-0.5 rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1 sm:hidden">
-                    <LanguageSwitcher locale={locale} pathname={pathname} />
+                    <LanguageSwitcher locale={locale} pathname={currentPath} />
                     <ThemeToggle locale={locale} />
                   </div>
                 </div>
               </div>
               <div className="mt-3 sm:hidden">
-                <nav className="flex items-center gap-1 rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1">
+                <nav className="flex items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1">
                   {siteConfig.nav.map((item) => (
                     <Link
                       key={item.key}
-                      className={`flex-1 rounded-[var(--radius-pill)] border px-4 py-2 text-center text-[0.96rem] font-medium transition ${
+                      className={`min-w-fit flex-1 rounded-[var(--radius-pill)] border px-2 py-2 text-center text-[0.85rem] font-medium transition ${
                         isActive(item.href)
                           ? "border-[var(--pill-border-strong)] bg-[var(--pill-surface-active)] text-[var(--pill-text-strong)]"
                           : "border-transparent text-[color:color-mix(in_srgb,var(--pill-text)_88%,var(--foreground))] hover:bg-[var(--pill-surface-active)] hover:text-[var(--pill-text-strong)]"
                       }`}
-                      href={`/${locale}${item.href}`}
+                      prefetch={item.key === "courses" ? false : undefined}
+                      href={`/${item.key === "courses" ? "zh" : locale}${item.href}`}
                     >
                       {dict.nav[item.key as keyof typeof dict.nav]}
                     </Link>

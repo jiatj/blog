@@ -124,7 +124,24 @@ function normalizeToolFrontmatter(
 async function readDirectoryFiles(dirPath: string) {
   try {
     const entries = await fs.readdir(dirPath);
-    return entries.filter((entry) => entry.endsWith(".md") || entry.endsWith(".mdx"));
+    const markdownEntries = entries.filter((entry) => entry.endsWith(".md") || entry.endsWith(".mdx"));
+    const preferredEntries = new Map<string, string>();
+
+    for (const entry of markdownEntries) {
+      const slugBase = entry.replace(/\.(md|mdx)$/, "");
+      const existing = preferredEntries.get(slugBase);
+
+      if (!existing) {
+        preferredEntries.set(slugBase, entry);
+        continue;
+      }
+
+      if (existing.endsWith(".md") && entry.endsWith(".mdx")) {
+        preferredEntries.set(slugBase, entry);
+      }
+    }
+
+    return [...preferredEntries.values()];
   } catch {
     return [];
   }

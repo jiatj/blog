@@ -238,6 +238,13 @@ img {
     linear-gradient(160deg, rgba(227, 220, 211, 0.99), rgba(218, 211, 200, 0.98));
 }
 
+.route-abl {
+  background-image:
+    radial-gradient(circle at 82% 8%, rgba(37, 99, 235, 0.1), transparent 24%),
+    radial-gradient(circle at 12% 30%, rgba(124, 58, 237, 0.07), transparent 22%),
+    linear-gradient(180deg, #f7f9ff 0%, #edf4ff 100%);
+}
+
 .dark .route-home {
   background-image:
     radial-gradient(circle at 12% 14%, rgba(137, 161, 187, 0.09), transparent 24%),
@@ -265,4 +272,11 @@ img {
     radial-gradient(circle at 16% 18%, rgba(137, 161, 187, 0.07), transparent 18%),
     radial-gradient(circle at 84% 18%, rgba(201, 210, 223, 0.03), transparent 16%),
     linear-gradient(160deg, rgba(22, 27, 33, 1), rgba(18, 22, 27, 0.98));
+}
+
+.dark .route-abl {
+  background-image:
+    radial-gradient(circle at 82% 8%, rgba(37, 99, 235, 0.12), transparent 24%),
+    radial-gradient(circle at 12% 30%, rgba(124, 58, 237, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(20, 24, 29, 1), rgba(18, 22, 27, 0.99));
 }

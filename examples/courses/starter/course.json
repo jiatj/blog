@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "slug": "starter",
+  "title": "从想法到第一个作品",
+  "summary": "从一个身边的小问题出发，把想法缩小、写清，再用可检查的结果完成第一次实践。",
+  "locale": "zh",
+  "status": "published",
+  "state": "complete",
+  "order": 10,
+  "start": "start",
+  "audience": "有一个想法，还不知道从哪里开始的学习者。",
+  "preparation": "一台电脑，以及一件你希望改善的小事。",
+  "outcomes": ["一份具体的问题描述", "一个足够小的实践范围", "一份可以检查的交付记录"],
+  "groups": [
+    { "id": "first-step", "title": "第一步 · 把问题写清楚", "guide": "start", "lessons": ["define-problem"] }
+  ],
+  "pages": [
+    { "slug": "start", "title": "先完成一件小事", "kind": "guide", "source": "lessons/01.开始.md", "status": "published", "updated": "2026-09-14", "label": "导读", "summary": "不急着增加功能，先找到一个值得动手的小问题。" },
+    { "slug": "define-problem", "title": "把想法写成一个可以检查的任务", "kind": "lesson", "source": "lessons/02.描述问题.md", "status": "published", "updated": "2026-09-14", "label": "01", "summary": "用具体场景、一个动作和一个结果，确定第一次实践的边界。", "objectives": ["写清楚谁在什么场景遇到什么问题", "用一句话说明如何检查结果"], "related": ["checklist"] },
+    { "slug": "checklist", "title": "用清单检查结果", "kind": "reference", "source": "lessons/03.检查清单.md", "status": "published", "updated": "2026-09-14", "label": "知识点", "summary": "把“感觉做完了”变成能逐项核对的结果。" }
+  ]
+}

@@ -8,6 +8,9 @@ type LanguageSwitcherProps = {
 };
 
 export function LanguageSwitcher({ locale, pathname }: LanguageSwitcherProps) {
+  if (/^\/(zh|en)\/courses(?:\/|$)/.test(pathname)) {
+    return <span className="px-2 text-[0.7rem] text-[var(--muted-foreground)]" title="课程目前提供中文版">中文</span>;
+  }
   const nextLocale = locale === "zh" ? "en" : "zh";
   const normalizedPath = pathname.replace(/^\/(zh|en)/, "") || "";
 

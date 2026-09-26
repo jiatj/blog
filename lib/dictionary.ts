@@ -18,6 +18,8 @@ const dictionaries = {
       projectNote: "基于AI Navtive 创作的产品、工具和试验品"
     },
     nav: {
+      abl: "ABL教育",
+      courses: "课程",
       tools: "项目",
       blog: "博客",
       about: "关于"
@@ -83,6 +85,8 @@ const dictionaries = {
       projectNote: "Projects are evidence of the method, not the headline."
     },
     nav: {
+      abl: "ABL Education",
+      courses: "Courses · 中文",
       tools: "Projects",
       blog: "Blog",
       about: "About"
