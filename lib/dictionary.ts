@@ -87,7 +87,7 @@ const dictionaries = {
     },
     nav: {
       abl: "ABL Education",
-      courses: "Courses · 中文",
+      courses: "Courses",
       tools: "Projects",
       blog: "Articles",
       discover: "Discover",
@@ -108,7 +108,7 @@ const dictionaries = {
       system: "System"
     },
     blog: {
-      title: "Blog",
+      title: "Articles",
       description: "Writing on building, method, AI workflows, and long-term creative systems.",
       empty: "No published posts yet."
     },
