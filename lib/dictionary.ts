@@ -8,7 +8,7 @@ const dictionaries = {
       eyebrow: "AI Builder Lab / Build in public",
       title: "把想法，做出来。",
       intro: "这里展示我的文章、产品与实验项目。记录判断，公开过程，持续交付。",
-      methodologyLink: "为什么是 Build. Think. Ship.",
+      methodologyLink: "了解我的方法",
       methodologyHref: "/blog/building-calm-ai-sites",
       projectsEyebrow: "Current focus",
       latestPosts: "最新文章",

@@ -182,7 +182,7 @@ export default async function AiBuilderLabPage({ params }: { params: Promise<{ l
           <a className={styles.secondaryButton} href={`mailto:${siteConfig.email}?subject=咨询 ABL 教育`}>微信咨询</a>
           <Link className={styles.secondaryButton} href={`/${locale}/about`}>了解课程路径</Link>
         </div>
-        <small>AI Builder Lab · Build. Think. Ship.</small>
+        <small>AI Builder Lab</small>
       </section>
     </main>
   );
