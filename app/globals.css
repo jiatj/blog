@@ -107,6 +107,11 @@ img {
   height: auto;
 }
 
+.dark .brand-wordmark {
+  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: screen;
+}
+
 .prose {
   font-size: clamp(1rem, 0.97rem + 0.18vw, 1.08rem);
   line-height: 2;

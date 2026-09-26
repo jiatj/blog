@@ -8,7 +8,7 @@ export function LogoMark({ locale }: { locale: Locale }) {
     <Link aria-label="AI Builder Lab home" className="inline-flex shrink-0 items-center" href={`/${locale}`}>
       <Image
         alt="AI Builder Lab"
-        className="block h-14 w-40 rounded-sm bg-white object-contain"
+        className="brand-wordmark block h-14 w-40 object-contain"
         height={56}
         priority
         src="/brand/abl-wordmark.png"
