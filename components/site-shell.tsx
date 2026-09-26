@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
@@ -19,6 +20,18 @@ type SiteShellProps = {
 export function SiteShell({ locale, pathname, children }: SiteShellProps) {
   const dict = getDictionary(locale);
   const currentPath = usePathname() ?? pathname;
+  const talknEntryUrl = process.env.NEXT_PUBLIC_TALKN_ENTRY_URL;
+  let talknScriptUrl: string | null = null;
+  try {
+    if (talknEntryUrl) {
+      const entry = new URL(talknEntryUrl);
+      if (entry.protocol === "https:" || (entry.protocol === "http:" && entry.hostname === "localhost")) {
+        talknScriptUrl = `${entry.origin}/embed.js`;
+      }
+    }
+  } catch {
+    // An invalid optional entry URL simply leaves the embed disabled.
+  }
 
   const routeTone = useMemo(() => {
     const normalizedPath = currentPath.replace(/^\/(zh|en)/, "") || "/";
@@ -115,10 +128,10 @@ export function SiteShell({ locale, pathname, children }: SiteShellProps) {
           {children}
           <footer className="border-t border-[var(--border-faint)] px-1 pb-10 pt-10 text-center">
             <p className="text-[1.08rem] font-medium tracking-[-0.03em] text-[color:color-mix(in_srgb,var(--foreground)_92%,var(--muted-foreground))]">
-              Build. Think. Ship.
+              AI Builder Lab · Build. Think. Ship.
             </p>
             <p className="mt-3 text-[0.78rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
-              &copy; T.J. JIA
+              &copy; AI Builder Lab
             </p>
             <p className="mt-2 text-[0.72rem] text-[var(--muted-foreground-soft)]">
               粤ICP备2026037329号-1
@@ -126,6 +139,9 @@ export function SiteShell({ locale, pathname, children }: SiteShellProps) {
           </footer>
         </div>
       </div>
+      {talknScriptUrl && talknEntryUrl ? (
+        <Script data-url={talknEntryUrl} src={talknScriptUrl} strategy="afterInteractive" />
+      ) : null}
     </div>
   );
 }

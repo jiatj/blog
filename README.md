@@ -1,4 +1,6 @@
-# Portal
+# AI Builder Lab Portal
+
+当前版本为 2.0。1.0 基线保存在 Git 标签 `v1.0.0`；文章、项目和课程沿用原有 URL 与发布方式，新增「发现」页及本地 SQLite 阅读归档。
 
 `portal` 是一个基于 `Next.js 16 + App Router` 的个人站点。
 
@@ -29,6 +31,8 @@
 - 当前 `npm run lint` 沿用旧的 `next lint` 配置，不作为本次验证命令；修复 lint 配置为 TODO。
 - 体验课程示例：`npm run course:check -- ./examples/courses/starter`，再执行 `npm run course:publish -- ./examples/courses/starter`，访问 `/zh/courses`。
 - `.course-data/` 为本地发布数据；原始示例位于 `examples/courses/`。正式 FDE 材料需整理后单独上传。
+- 发现页：创建 `.reading-data/sites.md`，每行填写 `- [站点名称](https://站点地址/)`；执行 `npm run reading:scan`，访问 `/zh/discover`。页面按北京时间归档，收藏和删除只保存在当前浏览器。
+- 阅读归档测试：`npm run test:reading`。默认 SQLite 文件为 `.reading-data/reading.sqlite`，网址清单和数据库均被 Git 忽略。
 
 ## Release Guide
 
@@ -37,8 +41,12 @@
 3. 将完整课程文件夹手工上传到独立待发布目录；在项目根执行 `npm run course:check -- <课程目录>`，通过后执行 `npm run course:publish -- <课程目录>`。课程更新无需重启。
 4. 验证课程目录、讲义、手机布局、明暗主题、图片下载及 `/sitemap.xml`；检查服务重启后课程仍可访问。
 5. 内容回退：`npm run course:rollback -- <课程slug>`；备份整个课程数据目录。代码发布的服务管理、反向代理和代码回滚命令：TODO，仓库尚未提供部署配置。
+6. 发现页上线：把 `sites.md` 上传到服务器上的 `READING_SITES_FILE` 路径（或默认 `.reading-data/sites.md`），在相同环境运行 `npm run reading:scan`；用系统调度器每天执行该命令。将 `READING_DB_PATH` 指向持久化可写磁盘，备份该文件。无网址清单时页面显示空状态。
+7. 如需 Talkn 公开助手，将 `NEXT_PUBLIC_TALKN_ENTRY_URL` 设为实际公开入口 URL 后重新构建。受保护的 Talkn 入口需要票据接口，不能直接用于此脚本；公开入口与部署地址尚未提供，因此默认不加载。
 
 CLI 不自动读取 `.env` 文件，生产环境变量需在运行命令的 shell 中设置。博客与项目仍沿用下文的 ingest 链路。
+
+发现页只收集 RSS/Atom 中带发布时间的文章标题、日期和链接，不复制原文。普通网页若没有可发现的 RSS/Atom feed，会在扫描命令中报错；调度方式及上传路径需按实际服务器补充。SQLite 为单实例本地文件，不适合无持久磁盘或多实例共享写入的部署。
 
 ### 常用启动命令
 

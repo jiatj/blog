@@ -89,9 +89,9 @@ function HeroVisual() {
             <circle cx="598" cy="80" fill="rgba(197,210,223,0.96)" r="5" />
             <defs>
               <linearGradient id="hero-path" x1="40" x2="598" y1="409" y2="80" gradientUnits="userSpaceOnUse">
-                <stop stopColor="rgba(210,220,230,0.88)" />
-                <stop offset="0.48" stopColor="rgba(144,164,185,0.96)" />
-                <stop offset="1" stopColor="rgba(210,220,230,0.66)" />
+                <stop stopColor="#7557e8" />
+                <stop offset="0.48" stopColor="#4f6ef7" />
+                <stop offset="1" stopColor="#a9b6ff" />
               </linearGradient>
             </defs>
           </svg>
@@ -118,15 +118,15 @@ export default async function HomePage({
   const [primaryTool, ...secondaryTools] = featuredTools;
 
   return (
-    <main className="space-y-24 pb-6 sm:space-y-28">
+    <main className="space-y-16 pb-6 sm:space-y-20">
       <section className="rounded-[2rem] border border-[color:color-mix(in_srgb,var(--border-soft)_88%,transparent)] bg-[color:color-mix(in_srgb,var(--hero-surface)_96%,transparent)] px-6 py-8 shadow-[var(--shadow)] sm:px-10 sm:py-10 lg:px-12 lg:py-12">
         <div className="grid gap-9 lg:grid-cols-[minmax(0,33rem)_minmax(24rem,1fr)] lg:items-center lg:gap-10">
           <div className="max-w-[31rem]">
             <p className="text-[0.68rem] uppercase tracking-[0.3em] text-[var(--muted-foreground-soft)]">
               {dict.home.eyebrow}
             </p>
-            <h1 className="mt-5 text-[clamp(3.8rem,8vw,6.2rem)] font-semibold leading-[0.9] tracking-[-0.07em] text-[var(--foreground)]">
-              {dict.home.title}
+            <h1 className="mt-5 text-[clamp(3rem,6vw,5rem)] font-semibold leading-[1.15] tracking-[-0.07em] text-[var(--foreground)]">
+              {locale === "zh" ? <>把想法，<br />做出来。</> : dict.home.title}
             </h1>
             <p className="mt-6 max-w-[24rem] text-[1.03rem] leading-8 text-[var(--muted-foreground)] sm:text-[1.08rem]">
               {dict.home.intro}
@@ -167,17 +167,9 @@ export default async function HomePage({
         </div>
 
         {featuredTools.length ? (
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-stretch">
+          <div className={`grid gap-4 lg:items-stretch ${secondaryTools.length ? "lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]" : ""}`}>
             {primaryTool ? <HomeProjectCard featured locale={locale} tool={primaryTool} /> : null}
-            <div className="grid gap-4">
-              {secondaryTools.length ? (
-                secondaryTools.map((tool) => <HomeProjectCard key={tool.slug} locale={locale} tool={tool} />)
-              ) : (
-                <div className="rounded-[1.6rem] border border-[var(--border-faint)] bg-[color:color-mix(in_srgb,var(--card)_82%,transparent)] p-6 text-[0.95rem] leading-7 text-[var(--muted-foreground)]">
-                  {dict.tools.empty}
-                </div>
-              )}
-            </div>
+            {secondaryTools.length ? <div className="grid gap-4">{secondaryTools.map((tool) => <HomeProjectCard key={tool.slug} locale={locale} tool={tool} />)}</div> : null}
           </div>
         ) : (
           <EmptyState message={dict.tools.empty} />

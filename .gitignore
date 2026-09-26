@@ -8,4 +8,5 @@ content/.sync-manifest.json
 .env.local
 .course-data/
 .course-incoming/
+.reading-data/
 *.tsbuildinfo

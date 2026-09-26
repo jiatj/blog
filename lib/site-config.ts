@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: "T.J. Jia",
-  description: "T.J. Jia · Build. Think. Ship.",
+  name: "AI Builder Lab",
+  description: "AI Builder Lab · 文章、产品与实验项目",
   url: "https://aibuilderlab.dev",
   author: "T.J. Jia",
   email: "jiatj@outlook.com",
@@ -40,10 +40,10 @@ export const siteConfig = {
     }
   ],
   nav: [
-    // ABL 教育暂不显示在导航中，原页面路由保留。
-    { href: "/courses", key: "courses" },
-    { href: "/tools", key: "tools" },
     { href: "/blog", key: "blog" },
+    { href: "/tools", key: "tools" },
+    { href: "/courses", key: "courses" },
+    { href: "/discover", key: "discover" },
     { href: "/about", key: "about" }
   ]
 } as const;

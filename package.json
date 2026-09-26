@@ -1,6 +1,6 @@
 {
   "name": "portal",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,9 @@
     "course:publish": "node scripts/course.mjs publish",
     "course:rollback": "node scripts/course.mjs rollback",
     "test:courses": "node --test scripts/test-courses.mjs scripts/test-courses-storage.mjs",
-    "test:courses:http": "node scripts/smoke-courses.mjs"
+    "test:courses:http": "node scripts/smoke-courses.mjs",
+    "reading:scan": "node scripts/reading.mjs",
+    "test:reading": "node --test scripts/test-reading.mjs"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.0",

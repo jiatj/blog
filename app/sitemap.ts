@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries = locales.flatMap((locale) =>
-    ["", "/ai-builder-lab", "/blog", "/tools", "/about"].map((path) => ({
+    ["", "/ai-builder-lab", "/blog", "/tools", "/discover", "/about"].map((path) => ({
       url: `${siteConfig.url}/${locale}${path}`,
       changeFrequency: "weekly" as const,
       priority: path === "" ? 1 : 0.7

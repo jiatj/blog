@@ -5,23 +5,24 @@ const dictionaries = {
     lang: "简体中文",
     switchLabel: "切换语言",
     home: {
-      eyebrow: "Method over noise",
-      title: "Build. Think. Ship.",
-      intro: "一个关于构建、思考与持续交付的个人入口。",
+      eyebrow: "AI Builder Lab / Build in public",
+      title: "把想法，做出来。",
+      intro: "这里展示我的文章、产品与实验项目。记录判断，公开过程，持续交付。",
       methodologyLink: "为什么是 Build. Think. Ship.",
       methodologyHref: "/blog/building-calm-ai-sites",
       projectsEyebrow: "Current focus",
       latestPosts: "最新文章",
-      latestTools: "热点项目",
+      latestTools: "项目与实验",
       viewAllPosts: "查看全部文章",
       viewAllTools: "更多项目",
-      projectNote: "基于AI Navtive 创作的产品、工具和试验品"
+      projectNote: "持续构建中的产品、工具和实验项目。"
     },
     nav: {
       abl: "ABL教育",
       courses: "课程",
       tools: "项目",
-      blog: "博客",
+      blog: "文章",
+      discover: "发现",
       about: "关于"
     },
     common: {
@@ -39,7 +40,7 @@ const dictionaries = {
       system: "跟随系统"
     },
     blog: {
-      title: "博客",
+      title: "文章",
       description: "记录关于构建、方法、AI 工作流与长期创作系统的思考。",
       empty: "还没有可展示的文章。"
     },
@@ -72,9 +73,9 @@ const dictionaries = {
     lang: "English",
     switchLabel: "Switch language",
     home: {
-      eyebrow: "Method over noise",
-      title: "Build. Think. Ship.",
-      intro: "A personal entry point for building, thinking, and shipping over time.",
+      eyebrow: "AI Builder Lab / Build in public",
+      title: "Make ideas real.",
+      intro: "Articles, products, and experiments—shared as they are built.",
       methodologyLink: "Read the essay",
       methodologyHref: "/blog/building-calm-ai-sites",
       projectsEyebrow: "Current focus",
@@ -88,7 +89,8 @@ const dictionaries = {
       abl: "ABL Education",
       courses: "Courses · 中文",
       tools: "Projects",
-      blog: "Blog",
+      blog: "Articles",
+      discover: "Discover",
       about: "About"
     },
     common: {

@@ -1,29 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #e4dfd6;
-  --foreground: #1d1f22;
-  --surface: #e3ddd4;
-  --surface-2: #ddd7cd;
-  --surface-3: #d8d1c6;
-  --muted: #d9d2c7;
-  --muted-foreground: #66635d;
-  --muted-foreground-soft: #878178;
-  --border: rgba(108, 101, 92, 0.14);
-  --border-soft: rgba(108, 101, 92, 0.085);
-  --border-faint: rgba(108, 101, 92, 0.05);
-  --card: rgba(228, 221, 212, 0.74);
-  --card-strong: rgba(224, 217, 207, 0.82);
-  --header-surface: rgba(225, 218, 209, 0.82);
-  --hero-surface: rgba(225, 218, 209, 0.78);
-  --accent: #738ca8;
-  --accent-ink: #58728f;
-  --accent-soft: rgba(115, 140, 168, 0.11);
+  --background: #f7f8fb;
+  --foreground: #0f0f12;
+  --surface: #ffffff;
+  --surface-2: #f1f1f4;
+  --surface-3: #e9eaf0;
+  --muted: #f1f1f4;
+  --muted-foreground: #60636d;
+  --muted-foreground-soft: #818591;
+  --border: rgba(15, 15, 18, 0.16);
+  --border-soft: rgba(15, 15, 18, 0.1);
+  --border-faint: rgba(15, 15, 18, 0.07);
+  --card: rgba(255, 255, 255, 0.94);
+  --card-strong: #ffffff;
+  --header-surface: rgba(255, 255, 255, 0.94);
+  --hero-surface: #ffffff;
+  --accent: #4f6ef7;
+  --accent-ink: #3856d7;
+  --accent-soft: rgba(79, 110, 247, 0.09);
   --shadow: 0 16px 34px rgba(20, 24, 30, 0.06);
   --shadow-soft: 0 8px 20px rgba(20, 24, 30, 0.035);
-  --radius-header: 1.35rem;
-  --radius-hero: 1.75rem;
-  --radius-card: 1.2rem;
+  --radius-header: 1rem;
+  --radius-hero: 1.5rem;
+  --radius-card: 1rem;
   --radius-pill: 999px;
   --pill-border: color-mix(in srgb, var(--border-faint) 92%, transparent);
   --pill-border-strong: color-mix(in srgb, var(--border-soft) 96%, transparent);
@@ -33,37 +33,28 @@
   --pill-text-strong: var(--foreground);
   --link-underline: color-mix(in srgb, var(--border) 62%, transparent);
   --link-underline-hover: color-mix(in srgb, var(--accent) 72%, transparent);
-  --font-ui:
-    "Noto Serif SC",
-    "Source Han Serif SC",
-    "Songti SC",
-    "STSong",
-    "SimSun",
-    "Iowan Old Style",
-    "Palatino Linotype",
-    "Times New Roman",
-    serif;
+  --font-ui: Inter, "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
 }
 
 .dark {
-  --background: #14181d;
-  --foreground: #ebe7df;
-  --surface: #192027;
-  --surface-2: #1c242c;
-  --surface-3: #212b34;
-  --muted: #1c232a;
-  --muted-foreground: #bbb6ae;
-  --muted-foreground-soft: #97999c;
-  --border: rgba(167, 183, 201, 0.11);
-  --border-soft: rgba(167, 183, 201, 0.06);
-  --border-faint: rgba(167, 183, 201, 0.03);
-  --card: rgba(24, 31, 38, 0.68);
-  --card-strong: rgba(28, 36, 44, 0.84);
-  --header-surface: rgba(23, 30, 37, 0.68);
-  --hero-surface: rgba(28, 36, 44, 0.75);
-  --accent: #89a1bb;
-  --accent-ink: #c5d2df;
-  --accent-soft: rgba(137, 161, 187, 0.12);
+  --background: #111216;
+  --foreground: #f8f9fc;
+  --surface: #191b21;
+  --surface-2: #20232b;
+  --surface-3: #292d37;
+  --muted: #20232b;
+  --muted-foreground: #b2b6c2;
+  --muted-foreground-soft: #858b9b;
+  --border: rgba(241, 241, 244, 0.18);
+  --border-soft: rgba(241, 241, 244, 0.12);
+  --border-faint: rgba(241, 241, 244, 0.08);
+  --card: rgba(25, 27, 33, 0.94);
+  --card-strong: #191b21;
+  --header-surface: rgba(25, 27, 33, 0.94);
+  --hero-surface: #191b21;
+  --accent: #7890ff;
+  --accent-ink: #a8b7ff;
+  --accent-soft: rgba(117, 87, 232, 0.18);
   --shadow: 0 22px 46px rgba(3, 5, 8, 0.22);
   --shadow-soft: 0 12px 28px rgba(3, 5, 8, 0.14);
   --pill-border: color-mix(in srgb, var(--border-faint) 72%, transparent);
@@ -279,4 +270,18 @@ img {
     radial-gradient(circle at 82% 8%, rgba(37, 99, 235, 0.12), transparent 24%),
     radial-gradient(circle at 12% 30%, rgba(124, 58, 237, 0.08), transparent 22%),
     linear-gradient(180deg, rgba(20, 24, 29, 1), rgba(18, 22, 27, 0.99));
+}
+
+.route-home,
+.route-tools,
+.route-blog,
+.route-about {
+  background-image: radial-gradient(circle at 82% 8%, rgba(79, 110, 247, 0.055), transparent 28%);
+}
+
+.dark .route-home,
+.dark .route-tools,
+.dark .route-blog,
+.dark .route-about {
+  background-image: radial-gradient(circle at 82% 8%, rgba(117, 87, 232, 0.075), transparent 28%);
 }
