@@ -33,7 +33,7 @@
   letter-spacing: -0.035em;
   line-height: 1.3;
   margin: 12px 0 16px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .intro h1 span { display: inline-block; }
 .intro p {
@@ -74,7 +74,7 @@
 .courseRow h2 {
   margin: 8px 0 14px;
   font-size: clamp(23px, 2.5vw, 31px);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
 }
 .courseRow h2 a:hover {
@@ -140,35 +140,41 @@
   opacity: 0.5;
 }
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 64px;
-  padding: 20px 0 48px;
+  padding: 12px 0 36px;
   border-bottom: 1px solid var(--course-line);
+}
+.heroWithCover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  align-items: center;
+  gap: 48px;
 }
 .hero h1 {
   font-size: clamp(32px, 4vw, 46px);
   line-height: 1.4;
   letter-spacing: -0.025em;
   margin: 12px 0 20px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .heroDetails {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--course-line);
+}
+.heroDetails > div + div {
   border-left: 1px solid var(--course-line);
-  padding: 10px 0 0 26px;
-  align-self: stretch;
+  padding-left: 28px;
 }
 .heroDetails dt {
   font-size: 12px;
   color: var(--muted-foreground);
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 }
 .heroDetails dd {
   font-size: 14px;
   line-height: 1.8;
-  margin: 0 0 24px;
-}
-.heroDetails dd:last-child {
   margin-bottom: 0;
 }
 .primary {
@@ -188,10 +194,9 @@
 }
 .cover {
   width: 100%;
-  max-height: 260px;
-  object-fit: cover;
+  max-height: 300px;
+  object-fit: contain;
   border-radius: 6px;
-  margin-bottom: 20px;
 }
 .outcomes {
   display: grid;
@@ -202,7 +207,7 @@
 }
 .outcomes h2 {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .outcomes ul {
   display: flex;
@@ -222,13 +227,12 @@
   margin-right: 10px;
 }
 .curriculum {
-  max-width: 900px;
-  margin-top: 42px;
+  margin-top: 36px;
 }
 .sectionHeading {
   margin: 0 0 24px;
   font-size: 23px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .group {
   margin: 0 0 32px;
@@ -246,7 +250,7 @@
 }
 .groupTitle h3 {
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .lessonRow {
   display: flex;
@@ -268,12 +272,23 @@
   min-width: 0;
   font-size: 15px;
 }
+.lessonName {
+  display: block;
+}
 .lessonTitle small {
   display: block;
   font-size: 12px;
   font-weight: normal;
   color: var(--muted-foreground);
   margin-top: 5px;
+}
+.group .lessonTitle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+.group .lessonTitle small {
+  margin-top: 0;
 }
 .arrow {
   flex: 0 0 auto;
@@ -307,7 +322,7 @@
 .contentsTitle {
   font-size: 15px;
   line-height: 1.7;
-  font-weight: 600;
+  font-weight: 500;
   display: block;
   margin-bottom: 22px;
 }
@@ -343,7 +358,6 @@
 }
 .article {
   min-width: 0;
-  max-width: 790px;
   background: color-mix(in srgb, var(--surface) 74%, transparent);
   border: 1px solid var(--course-line);
   border-radius: 8px;
@@ -365,7 +379,7 @@
 .article h1 {
   font-size: clamp(26px, 3vw, 36px);
   line-height: 1.5;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
   margin: 18px 0 14px;
 }
@@ -382,7 +396,7 @@
   font-size: 13px;
 }
 .objectives strong {
-  font-weight: 600;
+  font-weight: 500;
 }
 .objectives ul {
   margin: 8px 0 0;
@@ -417,7 +431,7 @@
 .body h3,
 .body h4 {
   scroll-margin-top: 120px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
   margin: 36px 0 14px;
 }
@@ -556,6 +570,7 @@
 }
 .related h2 {
   font-size: 13px;
+  font-weight: 500;
   color: var(--muted-foreground);
   margin: 0 0 12px;
 }
@@ -598,6 +613,7 @@
 }
 .empty h2 {
   font-size: 24px;
+  font-weight: 500;
   margin-bottom: 14px;
 }
 .empty p {
@@ -621,9 +637,15 @@
   .article {
     padding: 28px;
   }
-  .hero {
+  .heroWithCover {
     gap: 32px;
     grid-template-columns: minmax(0, 1fr) 240px;
+  }
+  .heroDetails {
+    gap: 20px;
+  }
+  .heroDetails > div + div {
+    padding-left: 20px;
   }
 }
 @media (max-width: 767px) {
@@ -654,14 +676,20 @@
     padding: 0;
   }
   .hero {
+    padding-bottom: 24px;
+  }
+  .heroWithCover {
     grid-template-columns: 1fr;
-    gap: 28px;
-    padding-bottom: 30px;
+    gap: 24px;
   }
   .heroDetails {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px 0;
+  }
+  .heroDetails > div + div {
     border-left: 0;
-    border-top: 1px solid var(--course-line);
-    padding: 24px 0 0;
+    padding-left: 0;
   }
   .outcomes {
     grid-template-columns: 1fr;
@@ -727,6 +755,12 @@
   }
   .lessonLabel {
     flex-basis: 54px;
+  }
+  .group .lessonTitle {
+    display: block;
+  }
+  .group .lessonTitle small {
+    margin-top: 5px;
   }
   .breadcrumbs {
     font-size: 11px;

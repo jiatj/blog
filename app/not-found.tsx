@@ -6,7 +6,7 @@ export default function NotFound() {
       <p className="text-sm uppercase tracking-[0.3em] text-[var(--muted-foreground)]">
         404
       </p>
-      <h1 className="mt-4 text-4xl font-semibold">Page not found</h1>
+      <h1 className="mt-4 text-4xl font-medium">Page not found</h1>
       <p className="mt-4 max-w-xl text-base text-[var(--muted-foreground)]">
         这个页面不存在，或者它已经被移动。You can return to the main
         entrance and continue exploring the site.

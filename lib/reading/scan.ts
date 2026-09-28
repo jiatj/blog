@@ -1,4 +1,4 @@
-import { loadReadingSites, saveArticles, shanghaiDate, type ReadingArticle, type ReadingSite } from "./store.ts";
+import { loadReadingSites, previousShanghaiDate, saveArticles, shanghaiDate, type ReadingArticle, type ReadingSite } from "./store.ts";
 
 function decodeXml(value: string): string {
   return value
@@ -17,6 +17,14 @@ function decodeXml(value: string): string {
 function field(xml: string, tag: string): string {
   const match = xml.match(new RegExp(`<(?:[\\w-]+:)?${tag}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/(?:[\\w-]+:)?${tag}>`, "i"));
   return match ? decodeXml(match[1]) : "";
+}
+
+function summary(value: string): string {
+  const clean = decodeXml(value).replace(/\s+/g, " ");
+  if (clean.length <= 360) return clean;
+  const clipped = clean.slice(0, 357);
+  const wordBoundary = clipped.lastIndexOf(" ");
+  return `${clipped.slice(0, wordBoundary > 280 ? wordBoundary : 357).trimEnd()}...`;
 }
 
 function safeUrl(value: string, base: string): string | null {
@@ -46,6 +54,8 @@ export function parseFeed(xml: string, feedUrl: string, site: ReadingSite): Read
     articles.push({
       url,
       title,
+      summary: summary(field(block, "description") || field(block, "summary") || field(block, "encoded") || field(block, "content")),
+      focusArea: site.focusArea,
       sourceName: site.name,
       sourceUrl: site.url,
       publishedAt: date.toISOString(),
@@ -55,24 +65,61 @@ export function parseFeed(xml: string, feedUrl: string, site: ReadingSite): Read
   return articles;
 }
 
-async function fetchText(url: string): Promise<string> {
-  const response = await fetch(url, {
-    headers: { "User-Agent": "AIBuilderLabReading/2.0 (+https://aibuilderlab.dev)", Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml, text/html" },
-    signal: AbortSignal.timeout(12000)
+export function parseJsonFeed(text: string, feedUrl: string, site: ReadingSite): ReadingArticle[] {
+  const payload = JSON.parse(text) as { items?: unknown[] };
+  if (!Array.isArray(payload.items)) return [];
+  return payload.items.slice(0, 50).flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const value = item as Record<string, unknown>;
+    const title = typeof value.title === "string" ? value.title.replace(/\s+/g, " ").trim().slice(0, 300) : "";
+    const url = safeUrl(String(value.url || value.external_url || ""), feedUrl);
+    const date = new Date(String(value.date_published || value.date_modified || ""));
+    if (!title || !url || Number.isNaN(date.valueOf())) return [];
+    const rawSummary = [value.summary, value.content_text, value.content_html].find((candidate) => typeof candidate === "string") as string | undefined;
+    return [{
+      url,
+      title,
+      summary: summary(rawSummary || ""),
+      focusArea: site.focusArea,
+      sourceName: site.name,
+      sourceUrl: site.url,
+      publishedAt: date.toISOString(),
+      publishedDate: shanghaiDate(date)
+    }];
   });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const length = Number(response.headers.get("content-length") || 0);
-  if (length > 2_000_000) throw new Error("Response too large");
-  const text = await response.text();
-  if (text.length > 2_000_000) throw new Error("Response too large");
-  return text;
+}
+
+async function fetchText(url: string): Promise<string> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: { "User-Agent": "AIBuilderLabReading/2.0 (+https://aibuilderlab.dev)", Accept: "application/rss+xml, application/atom+xml, application/feed+json, application/json, application/xml, text/xml, text/html" },
+        signal: AbortSignal.timeout(15000)
+      });
+      if (!response.ok) {
+        const error = new Error(`HTTP ${response.status}`);
+        if (response.status < 500 && response.status !== 429) throw error;
+        lastError = error;
+        continue;
+      }
+      const length = Number(response.headers.get("content-length") || 0);
+      if (length > 2_000_000) throw new Error("Response too large");
+      const text = await response.text();
+      if (text.length > 2_000_000) throw new Error("Response too large");
+      return text;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError;
 }
 
 function discoverFeedLinks(html: string, siteUrl: string): string[] {
   const links: string[] = [];
   for (const match of html.matchAll(/<link\b[^>]*>/gi)) {
     const tag = match[0];
-    if (!/\brel=["'][^"']*alternate/i.test(tag) || !/\btype=["'](?:application\/(?:rss|atom)\+xml|text\/xml)/i.test(tag)) continue;
+    if (!/\brel=["'][^"']*alternate/i.test(tag) || !/\btype=["'](?:application\/(?:rss|atom)\+xml|application\/feed\+json|text\/xml)/i.test(tag)) continue;
     const href = tag.match(/\bhref=["']([^"']+)["']/i)?.[1];
     const url = href && safeUrl(href, siteUrl);
     if (url) links.push(url);
@@ -81,16 +128,22 @@ function discoverFeedLinks(html: string, siteUrl: string): string[] {
 }
 
 export async function scanSite(site: ReadingSite): Promise<ReadingArticle[]> {
+  if (site.feedUrl) {
+    const feed = await fetchText(site.feedUrl);
+    if (/^\s*\{/.test(feed)) return parseJsonFeed(feed, site.feedUrl, site);
+    if (/<(?:rss|feed)\b/i.test(feed)) return parseFeed(feed, site.feedUrl, site);
+    throw new Error("Configured feed URL is not RSS, Atom, or JSON Feed");
+  }
   const candidates: string[] = [];
   const page = await fetchText(site.url);
   if (/<(?:rss|feed)\b/i.test(page)) return parseFeed(page, site.url, site);
   candidates.push(...discoverFeedLinks(page, site.url));
-  candidates.push(...["feed", "rss.xml", "atom.xml"].map((suffix) => new URL(suffix, site.url.endsWith("/") ? site.url : `${site.url}/`).href));
+  candidates.push(...["feed", "rss.xml", "atom.xml", "feed.json"].map((suffix) => new URL(suffix, site.url.endsWith("/") ? site.url : `${site.url}/`).href));
   for (const candidate of new Set(candidates)) {
     try {
       const xml = await fetchText(candidate);
-      if (!/<(?:rss|feed)\b/i.test(xml)) continue;
-      return parseFeed(xml, candidate, site);
+      if (/^\s*\{/.test(xml)) return parseJsonFeed(xml, candidate, site);
+      if (/<(?:rss|feed)\b/i.test(xml)) return parseFeed(xml, candidate, site);
     } catch {
       // A site may advertise a stale feed; try its next candidate.
     }
@@ -98,16 +151,22 @@ export async function scanSite(site: ReadingSite): Promise<ReadingArticle[]> {
   throw new Error("No supported RSS/Atom feed found");
 }
 
-export async function scanReadingSites(): Promise<{ scanned: number; saved: number; errors: string[] }> {
+export async function scanReadingSites(options: { date?: string } = {}): Promise<{ date: string; scanned: number; saved: number; errors: string[] }> {
   const sites = loadReadingSites();
+  const date = options.date || previousShanghaiDate();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error("Scan date must use YYYY-MM-DD");
   let saved = 0;
   const errors: string[] = [];
-  for (const site of sites) {
+  const results = await Promise.all(sites.map(async (site) => {
     try {
-      saved += saveArticles(await scanSite(site));
+      return { articles: (await scanSite(site)).filter((article) => article.publishedDate === date) };
     } catch (error) {
-      errors.push(`${site.name}: ${error instanceof Error ? error.message : String(error)}`);
+      return { error: `${site.name}: ${error instanceof Error ? error.message : String(error)}` };
     }
+  }));
+  for (const result of results) {
+    if (result.error) errors.push(result.error);
+    else saved += saveArticles(result.articles || []);
   }
-  return { scanned: sites.length, saved, errors };
+  return { date, scanned: sites.length, saved, errors };
 }

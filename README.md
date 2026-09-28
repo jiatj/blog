@@ -25,14 +25,16 @@
 ## Development Guide
 
 - 使用 Node.js 24+（课程 CLI 直接运行 TypeScript），在项目根目录执行 `npm ci`。
-- 启动：`npm run dev`；默认访问 `http://localhost:3000`。
+- 启动：`npm run dev`；默认访问 `http://localhost:3006`。`npm run start` 与 `npm run prod` 同样使用 3006 端口；临时覆盖可追加 `-- --port <端口>` 到 `dev` 或 `start` 命令。
 - 类型检查：`npx tsc --noEmit`；课程测试：`npm run test:courses`；构建：`npm run build`。
 - 生产模式验收：先 `npm run start -- --port 3100`，另一个终端运行 `npm run test:courses:http -- http://localhost:3100`。仅针对本机测试服务；会创建并清理独立临时测试课程。
 - 当前 `npm run lint` 沿用旧的 `next lint` 配置，不作为本次验证命令；修复 lint 配置为 TODO。
 - 体验课程示例：`npm run course:check -- ./examples/courses/starter`，再执行 `npm run course:publish -- ./examples/courses/starter`，访问 `/zh/courses`。
 - `.course-data/` 为本地发布数据；原始示例位于 `examples/courses/`。正式 FDE 材料需整理后单独上传。
-- 发现页：创建 `.reading-data/sites.md`，每行填写 `- [站点名称](https://站点地址/)`；执行 `npm run reading:scan`，访问 `/zh/discover`。页面按北京时间归档，收藏和删除只保存在当前浏览器。
-- 阅读归档测试：`npm run test:reading`。默认 SQLite 文件为 `.reading-data/reading.sqlite`，网址清单和数据库均被 Git 忽略。
+- 项目级本地数据默认放在 `.portal-data/`；也可用 `PORTAL_DATA_DIR` 指向一个持久化绝对路径。旧的 `.reading-data/` 仍兼容读取，但不建议继续作为新数据目录。
+- 发现页来源维护在 `config/reading-sources.json`，只接入带可靠发布时间的 RSS、Atom 或 JSON Feed。执行 `npm run reading:scan` 会收集上海时区前一日文章；手工补采使用 `npm run reading:scan -- --date 2026-09-27`。
+- 来源可用 `READING_SOURCES_FILE` 覆盖。每项包含 `name`、`url`、`feedUrl` 和 `focusArea`；摘要直接使用 Feed 原摘要，不抓取或复制正文。
+- 阅读归档测试：`npm run test:reading`。默认 SQLite 文件为 `.portal-data/reading/reading.sqlite`；页面默认展示不晚于昨日的最近一次收录，收藏和删除只保存在当前浏览器。
 
 ## Release Guide
 
@@ -41,12 +43,12 @@
 3. 将完整课程文件夹手工上传到独立待发布目录；在项目根执行 `npm run course:check -- <课程目录>`，通过后执行 `npm run course:publish -- <课程目录>`。课程更新无需重启。
 4. 验证课程目录、讲义、手机布局、明暗主题、图片下载及 `/sitemap.xml`；检查服务重启后课程仍可访问。
 5. 内容回退：`npm run course:rollback -- <课程slug>`；备份整个课程数据目录。代码发布的服务管理、反向代理和代码回滚命令：TODO，仓库尚未提供部署配置。
-6. 发现页上线：把 `sites.md` 上传到服务器上的 `READING_SITES_FILE` 路径（或默认 `.reading-data/sites.md`），在相同环境运行 `npm run reading:scan`；用系统调度器每天执行该命令。将 `READING_DB_PATH` 指向持久化可写磁盘，备份该文件。无网址清单时页面显示空状态。
+6. 发现页上线：优先配置 `PORTAL_DATA_DIR` 为持久化可写磁盘上的项目级数据根，或配置 `READING_SOURCES_FILE` / `READING_DB_PATH`。在持有 SQLite 数据文件的同一台机器上每天执行 `npm run reading:scan`；Windows 可运行 `npm run reading:task:install -- -At 08:00` 安装每日任务。Linux/macOS 使用系统 cron，部署命令与工作目录按服务器实际路径配置。备份 SQLite 文件。
 7. 如需 Talkn 公开助手，将 `NEXT_PUBLIC_TALKN_ENTRY_URL` 设为实际公开入口 URL 后重新构建。受保护的 Talkn 入口需要票据接口，不能直接用于此脚本；公开入口与部署地址尚未提供，因此默认不加载。
 
 CLI 不自动读取 `.env` 文件，生产环境变量需在运行命令的 shell 中设置。博客与项目仍沿用下文的 ingest 链路。
 
-发现页只收集 RSS/Atom 中带发布时间的文章标题、日期和链接，不复制原文。普通网页若没有可发现的 RSS/Atom feed，会在扫描命令中报错；调度方式及上传路径需按实际服务器补充。SQLite 为单实例本地文件，不适合无持久磁盘或多实例共享写入的部署。
+发现页只收集 Feed 中带发布时间的文章标题、原摘要、方向、日期和链接，不复制原文。没有 Feed 的普通网页不接入；单个来源失败不会覆盖其他来源的已有数据，但命令会返回失败状态供调度器告警。SQLite 为单实例本地文件，不适合无持久磁盘或多实例共享写入的部署。
 
 ### 常用启动命令
 

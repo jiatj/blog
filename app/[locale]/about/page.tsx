@@ -61,7 +61,7 @@ export default async function AboutPage({
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1.34fr)_minmax(18rem,0.82fr)] lg:items-start">
         <article className="rounded-[1.7rem] border border-[color:color-mix(in_srgb,var(--border-soft)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--card-strong)_94%,transparent)] p-7 shadow-[0_8px_20px_rgba(20,24,30,0.025)] sm:p-8 lg:min-h-[40rem]">
           <div className="grid gap-6 border-b border-[color:color-mix(in_srgb,var(--border-faint)_94%,transparent)] pb-6 sm:grid-cols-[minmax(0,1fr)_12rem] sm:items-end">
-            <h2 className="text-[1.9rem] font-semibold leading-[1.05] tracking-[-0.05em] text-[var(--foreground)] sm:text-[2.25rem]">
+            <h2 className="text-[1.9rem] font-medium leading-[1.05] tracking-[-0.05em] text-[var(--foreground)] sm:text-[2.25rem]">
               {primaryBlock.title}
             </h2>
             <p className="text-[0.68rem] uppercase tracking-[0.26em] text-[var(--muted-foreground-soft)] sm:text-right">
@@ -74,7 +74,7 @@ export default async function AboutPage({
         <div className="grid gap-6">
           <article className="rounded-[1.55rem] border border-[color:color-mix(in_srgb,var(--border-soft)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--card-strong)_94%,transparent)] p-5 shadow-[0_8px_20px_rgba(20,24,30,0.025)] sm:p-6">
             <div className="flex items-start justify-between gap-4">
-              <h2 className="text-[1.42rem] font-semibold leading-[1.12] tracking-[-0.04em] text-[var(--foreground)] sm:text-[1.54rem]">
+              <h2 className="text-[1.42rem] font-medium leading-[1.12] tracking-[-0.04em] text-[var(--foreground)] sm:text-[1.54rem]">
                 {reasonBlock.title}
               </h2>
               <span className="pt-1 text-[0.66rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
@@ -86,7 +86,7 @@ export default async function AboutPage({
 
           <article className="rounded-[1.55rem] border border-[color:color-mix(in_srgb,var(--border-soft)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--card-strong)_94%,transparent)] p-5 shadow-[0_8px_20px_rgba(20,24,30,0.025)] sm:p-6">
             <div className="flex items-end justify-between gap-4 border-b border-[color:color-mix(in_srgb,var(--border-faint)_94%,transparent)] pb-3.5">
-              <h2 className="text-[1.45rem] font-semibold leading-[1.12] tracking-[-0.04em] text-[var(--foreground)] sm:text-[1.58rem]">
+              <h2 className="text-[1.45rem] font-medium leading-[1.12] tracking-[-0.04em] text-[var(--foreground)] sm:text-[1.58rem]">
                 {locale === "zh" ? "我的自媒体" : "My Channels"}
               </h2>
               <span className="text-[0.66rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">

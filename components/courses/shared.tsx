@@ -31,7 +31,7 @@ export function LessonRow({
         {page.label || kindLabel[page.kind]}
       </span>
       <span className={styles.lessonTitle}>
-        {page.title}
+        <span className={styles.lessonName}>{page.title}</span>
         {page.summary && <small>{page.summary}</small>}
       </span>
       <span className={styles.arrow} aria-hidden="true">

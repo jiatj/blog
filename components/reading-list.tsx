@@ -50,9 +50,11 @@ export function ReadingList({ articles, locale }: { articles: ReadingArticle[]; 
             <span aria-hidden="true">·</span>
             <time dateTime={article.publishedAt}>{new Date(article.publishedAt).toLocaleTimeString(locale === "zh" ? "zh-CN" : "en-US", { timeZone: "Asia/Shanghai", hour: "2-digit", minute: "2-digit" })}</time>
           </div>
-          <h2 className="text-xl font-semibold leading-snug tracking-[-0.03em]">
+          <h2 className="text-xl font-medium leading-snug tracking-[-0.03em]">
             <a className="transition hover:text-[var(--accent-ink)]" href={article.url} rel="noopener noreferrer" target="_blank">{article.title} <span aria-hidden="true" className="text-base font-normal text-[var(--muted-foreground-soft)]">↗</span></a>
           </h2>
+          {article.summary ? <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--muted-foreground)]">{article.summary}</p> : null}
+          {article.focusArea ? <p className="mt-3 text-xs font-medium text-[var(--accent-ink)]">{article.focusArea}</p> : null}
           <div className="mt-4 flex gap-5 text-sm text-[var(--muted-foreground)]">
             <button aria-pressed={favorites.has(article.url)} className="hover:text-[var(--accent-ink)]" onClick={() => update(favoriteKey, favorites, setFavorites, article.url)} type="button">
               {favorites.has(article.url) ? (locale === "zh" ? "已收藏 ★" : "Saved ★") : (locale === "zh" ? "收藏 ☆" : "Save ☆")}

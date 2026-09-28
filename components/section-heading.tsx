@@ -13,10 +13,10 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const titleClassName =
     level === "hero"
-      ? "mt-4 text-[clamp(3.45rem,7.15vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.058em]"
+      ? "mt-4 text-[clamp(3.45rem,7.15vw,5.25rem)] font-medium leading-[0.94] tracking-[-0.058em]"
       : level === "page"
-        ? "mt-3 text-4xl font-semibold leading-[1.08] tracking-[-0.04em] sm:text-5xl"
-        : "mt-2 text-[1.55rem] font-semibold leading-[1.14] tracking-[-0.035em] sm:text-[1.8rem]";
+        ? "mt-3 text-4xl font-medium leading-[1.08] tracking-[-0.04em] sm:text-5xl"
+        : "mt-2 text-[1.75rem] font-medium leading-[1.12] tracking-[-0.04em] sm:text-[2.1rem]";
 
   const descriptionClassName =
     level === "hero"

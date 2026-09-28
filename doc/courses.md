@@ -38,7 +38,7 @@ fde/
 | `start` | 起始导读或讲义的 slug，公开课程必须指向已发布页 |
 | `groups` | 模块数组：`id`、`title`、可选 `guide`、有序 `lessons` slug 数组 |
 | `pages` | 所有内容页的数组，知识点也放在这里 |
-| 可选课程字段 | `audience`、`preparation`、`outcomes` 字符串数组、`cover`（如 `assets/封面.png`） |
+| 可选课程字段 | `audience`、`preparation` 为非空字符串；`outcomes` 为字符串数组；`cover` 为资源路径（如 `assets/封面.png`） |
 
 一个内容页的配置：
 
@@ -105,7 +105,7 @@ npm run course:publish -- ./examples/courses/starter
 npm run dev
 ```
 
-打开 `http://localhost:3000/zh/courses`。`check` 只检查，不修改发布状态；输出每页网址与可用锚点，遇到错误会以非零状态退出。
+打开 `http://localhost:3006/zh/courses`。`check` 只检查，不修改发布状态；输出每页网址与可用锚点，遇到错误会以非零状态退出。
 
 默认发布到项目根的 `.course-data/`，该目录不进入 Git。发布示例仅用于本机体验；正式服务器上传你整理好的课程。
 

@@ -1,4 +1,4 @@
-const defaultUrl = process.env.PORTAL_SYNC_URL ?? "http://localhost:3000/api/content/sync";
+const defaultUrl = process.env.PORTAL_SYNC_URL ?? "http://localhost:3006/api/content/sync";
 const defaultSecret = process.env.CONTENT_SYNC_SECRET ?? "";
 
 function parseArgs(argv) {

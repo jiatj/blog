@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "name": "Levels",
+      "url": "https://levels.io/",
+      "feedUrl": "https://levels.io/rss/longform",
+      "focusArea": "AI-native 小产品/小工具"
+    },
+    {
+      "name": "The Bootstrapped Founder",
+      "url": "https://thebootstrappedfounder.com/",
+      "feedUrl": "https://thebootstrappedfounder.com/feed/",
+      "focusArea": "AI-native 小产品/小工具"
+    },
+    {
+      "name": "Hamel Husain",
+      "url": "https://hamel.dev/",
+      "feedUrl": "https://hamel.dev/index.xml",
+      "focusArea": "AI Agent 质量控制与 Evals"
+    },
+    {
+      "name": "Stratechery",
+      "url": "https://stratechery.com/",
+      "feedUrl": "https://stratechery.com/feed/",
+      "focusArea": "科技战略与未来"
+    },
+    {
+      "name": "Simon Willison",
+      "url": "https://simonwillison.net/",
+      "feedUrl": "https://simonwillison.net/atom/everything/",
+      "focusArea": "LLM 实践与生态"
+    },
+    {
+      "name": "Addy Osmani",
+      "url": "https://addyo.substack.com/",
+      "feedUrl": "https://addyo.substack.com/feed",
+      "focusArea": "AI Coding 最佳实践"
+    },
+    {
+      "name": "The Diff",
+      "url": "https://www.thediff.co/",
+      "feedUrl": "https://www.thediff.co/feed",
+      "focusArea": "科技战略与未来"
+    },
+    {
+      "name": "Not Boring",
+      "url": "https://www.notboring.co/",
+      "feedUrl": "https://www.notboring.co/feed",
+      "focusArea": "科技战略与未来"
+    },
+    {
+      "name": "Exponential View",
+      "url": "https://www.exponentialview.co/",
+      "feedUrl": "https://www.exponentialview.co/feed",
+      "focusArea": "科技战略与未来"
+    }
+  ]
+}

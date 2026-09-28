@@ -56,7 +56,7 @@ export default async function ToolDetailPage({
             <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
               {tool.toolStatus ?? dict.tools.status}
             </p>
-            <h1 className="mt-3 text-[2rem] font-semibold leading-[1.16] tracking-[-0.04em] sm:text-[2.35rem]">
+            <h1 className="mt-3 text-[2rem] font-medium leading-[1.16] tracking-[-0.04em] sm:text-[2.35rem]">
               {tool.title}
             </h1>
             <p className="mt-4 max-w-[34rem] text-[0.98rem] leading-8 text-[var(--muted-foreground)]">

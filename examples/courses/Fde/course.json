@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "locale": "zh",
+  "slug": "fde",
+  "title": "FDE：AI 红利下的“三高”课",
+  "summary": "用一个贯穿学期的个人学习笔记本，接触 AI 应用开发与交付的主要能力入口，完成一个可使用的小型 AI 应用。少讲，多做；一个项目持续迭代。",
+  "status": "published",
+  "state": "updating",
+  "order": 10,
+  "start": "c100",
+  "audience": "想用 AI 和编程真正做出一个作品的大学生；有一点编程基础即可，不要求先学完所有技术。",
+  "preparation": "自带一台能上网、可安装软件的笔记本电脑；注册 WorkBuddy 账号（课程选用的 AI 工具）；自行保障网络与 AI 账号费用。",
+  "outcomes": [
+    "一个可以继续修改的个人学习笔记本",
+    "一次从需求到交付的完整项目经历",
+    "一套用 AI 协作、并自己验证结果的工作方式"
+  ],
+  "cover": "assets/cover.png",
+  "groups": [
+    {
+      "id": "module-01",
+      "title": "Module01 · 从想法到动手",
+      "guide": "c100",
+      "lessons": ["c101", "c102", "c103", "c104"]
+    }
+  ],
+  "pages": [
+    {
+      "slug": "c100",
+      "title": "从想法到动手",
+      "kind": "guide",
+      "source": "lessons/C100.从想法到动手.md",
+      "status": "published",
+      "updated": "2026-09-27",
+      "label": "C100",
+      "summary": "用 AI 开启你的第一个项目：认识课程、跑通环境、完成修改、确定选题。"
+    },
+    {
+      "slug": "c101",
+      "title": "FDE，AI 红利下的“三高”课",
+      "kind": "lesson",
+      "source": "lessons/C101.认识FDE与课程.md",
+      "status": "published",
+      "updated": "2026-09-27",
+      "label": "C101",
+      "summary": "看懂从问题到交付的工作方式，了解这一学期怎样做项目、怎样使用 AI。",
+      "objectives": [
+        "说清课程目标，以及自己想用笔记本解决的一个问题",
+        "了解一个项目持续迭代的学习方式与 A/B/C 分级任务",
+        "记住 AI 使用约定：能说明、能验证、能负责"
+      ]
+    },
+    {
+      "slug": "c102",
+      "title": "开发环境：先让程序跑起来",
+      "kind": "lesson",
+      "source": "lessons/C102.开发环境.md",
+      "status": "published",
+      "updated": "2026-09-27",
+      "label": "C102",
+      "summary": "准备工具，执行检测，完成一次可复现的运行。",
+      "objectives": [
+        "检测 Node.js、npm 与 Git，保留真实输出",
+        "创建并运行 check.cjs，修改后输出同步改变",
+        "建立 gitee 作业仓库 fde-01"
+      ]
+    },
+    {
+      "slug": "c103",
+      "title": "基础知识：用一次，就留下一个入口",
+      "kind": "lesson",
+      "source": "lessons/C103.基础知识.md",
+      "status": "published",
+      "updated": "2026-09-27",
+      "label": "C103",
+      "summary": "找到文件，交代修改，检查结果，写下证据。",
+      "objectives": [
+        "完成一处自己的修改，并解释改动目的",
+        "写一份同学可复验的 Markdown 修改记录",
+        "把同样方法用于笔记本 V0 的一处小修改"
+      ]
+    },
+    {
+      "slug": "c104",
+      "title": "确定选题：先把第一版想清楚",
+      "kind": "lesson",
+      "source": "lessons/C104.确定选题.md",
+      "status": "published",
+      "updated": "2026-09-27",
+      "label": "C104",
+      "summary": "为谁做，解决什么问题，第一版做到哪里。",
+      "objectives": [
+        "完成立项初稿：为谁、什么问题、已有方案、第一版范围",
+        "从调研结果中选出一个保留功能、一个暂缓功能和一个待验证问题",
+        "用 Markdown 写一份笔记产品需求"
+      ]
+    }
+  ]
+}

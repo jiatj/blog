@@ -6,7 +6,5 @@ dist
 content/.sync-manifest.json
 .env
 .env.local
-.course-data/
-.course-incoming/
-.reading-data/
-*.tsbuildinfo
+.portal-data/
+*.tsbuildinfo 

@@ -3,10 +3,10 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3006",
     "build": "next build",
-    "start": "next start",
-    "prod": "next build && next start",
+    "start": "next start --port 3006",
+    "prod": "npm run build && npm run start",
     "lint": "next lint",
     "test:content-sync": "node scripts/test-content-sync.mjs",
     "course:check": "node scripts/course.mjs check",
@@ -15,6 +15,7 @@
     "test:courses": "node --test scripts/test-courses.mjs scripts/test-courses-storage.mjs",
     "test:courses:http": "node scripts/smoke-courses.mjs",
     "reading:scan": "node scripts/reading.mjs",
+    "reading:task:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-reading-task.ps1",
     "test:reading": "node --test scripts/test-reading.mjs"
   },
   "dependencies": {

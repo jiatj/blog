@@ -13,7 +13,7 @@ export function PostCard({ post, locale }: { post: PostEntry; locale: Locale }) 
       <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted-foreground-soft)]">
         {formatDate(post.date ?? "", locale)}
       </p>
-      <h2 className="mt-4 text-[1.7rem] font-semibold leading-[1.18] tracking-[-0.035em]">
+      <h2 className="mt-4 text-[1.7rem] font-medium leading-[1.18] tracking-[-0.035em]">
         {post.title}
       </h2>
       <p className="mt-3 text-[1rem] leading-8 text-[var(--muted-foreground)]">{post.summary}</p>
@@ -44,7 +44,7 @@ export function ToolCard({ tool, locale }: { tool: ToolEntry; locale: Locale }) 
     <article className="rounded-[var(--radius-card)] border border-[color:color-mix(in_srgb,var(--pill-border)_92%,transparent)] bg-[color:color-mix(in_srgb,var(--card-strong)_86%,transparent)] p-5 sm:p-5.5 transition hover:border-[var(--pill-border-strong)] hover:bg-[color:color-mix(in_srgb,var(--card-strong)_92%,transparent)]">
       <div className="max-w-[42rem]">
         <div className="flex flex-wrap items-center gap-2">
-          <h2 className="text-[1.42rem] font-semibold leading-[1.1] tracking-[-0.04em] sm:text-[1.62rem]">
+          <h2 className="text-[1.42rem] font-medium leading-[1.1] tracking-[-0.04em] sm:text-[1.62rem]">
             {tool.title}
           </h2>
           {tool.toolStatus ? (
@@ -113,9 +113,9 @@ export function HomeProjectCard({
           ) : null}
         </div>
 
-        <div className={featured ? "mt-10 max-w-[28rem]" : "mt-7 max-w-[22rem]"}>
+        <div className={featured ? "mt-10 max-w-[38rem]" : "mt-7 max-w-[22rem]"}>
           <h3
-            className={`font-semibold tracking-[-0.04em] text-[var(--foreground)] ${
+            className={`font-medium tracking-[-0.04em] text-[var(--foreground)] ${
               featured ? "text-[2rem] leading-[1.02] sm:text-[2.35rem]" : "text-[1.4rem] leading-[1.08]"
             }`}
           >
@@ -123,7 +123,7 @@ export function HomeProjectCard({
           </h3>
           <p
             className={`text-[var(--muted-foreground)] ${
-              featured ? "mt-4 max-w-[24rem] text-[1rem] leading-8" : "mt-3 text-[0.98rem] leading-7"
+              featured ? "mt-4 max-w-[36rem] text-[1rem] leading-8" : "mt-3 text-[0.98rem] leading-7"
             }`}
           >
             {tool.summary}

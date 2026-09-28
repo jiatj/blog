@@ -48,7 +48,7 @@ function HeroVisual() {
         <div className="absolute inset-y-0 right-0 w-12 bg-[linear-gradient(270deg,rgba(20,25,30,0.9),transparent)]" />
 
         <div className="relative grid gap-3">
-          <div className="grid grid-cols-2 gap-x-3 gap-y-2.5 text-[clamp(2.5rem,6.5vw,3.85rem)] font-semibold leading-[0.82] tracking-[-0.08em] text-[rgba(214,224,234,0.13)]">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-2.5 text-[clamp(2.5rem,6.5vw,3.85rem)] font-medium leading-[0.82] tracking-[-0.08em] text-[rgba(214,224,234,0.13)]">
             <span>AI</span>
             <span className="justify-self-end">AI</span>
             <span className="translate-x-3">AI</span>
@@ -125,7 +125,7 @@ export default async function HomePage({
             <p className="text-[0.68rem] uppercase tracking-[0.3em] text-[var(--muted-foreground-soft)]">
               {dict.home.eyebrow}
             </p>
-            <h1 className="mt-5 text-[clamp(3rem,6vw,5rem)] font-semibold leading-[1.15] tracking-[-0.07em] text-[var(--foreground)]">
+            <h1 className="mt-5 text-[clamp(3rem,6vw,5rem)] font-medium leading-[1.15] tracking-[-0.07em] text-[var(--foreground)]">
               {locale === "zh" ? <>把想法，<br />做出来。</> : dict.home.title}
             </h1>
             <p className="mt-6 max-w-[24rem] text-[1.03rem] leading-8 text-[var(--muted-foreground)] sm:text-[1.08rem]">
@@ -153,7 +153,7 @@ export default async function HomePage({
             <p className="text-[0.66rem] uppercase tracking-[0.28em] text-[var(--muted-foreground-soft)]">
               {dict.home.projectsEyebrow}
             </p>
-            <h2 className="mt-2 text-[1.75rem] font-semibold leading-[1.08] tracking-[-0.045em] sm:text-[2.1rem]">
+            <h2 className="mt-2 text-[1.75rem] font-medium leading-[1.08] tracking-[-0.045em] sm:text-[2.1rem]">
               {dict.home.latestTools}
             </h2>
             <p className="mt-3 text-[0.98rem] leading-7 text-[var(--muted-foreground)]">{dict.home.projectNote}</p>
@@ -181,7 +181,7 @@ export default async function HomePage({
           <p className="text-[0.66rem] uppercase tracking-[0.28em] text-[var(--muted-foreground-soft)]">
             {dict.common.latest}
           </p>
-          <h2 className="mt-2 text-[1.7rem] font-semibold leading-[1.08] tracking-[-0.04em]">
+          <h2 className="mt-2 text-[1.75rem] font-medium leading-[1.08] tracking-[-0.045em] sm:text-[2.1rem]">
             {dict.home.latestPosts}
           </h2>
         </div>
@@ -195,7 +195,7 @@ export default async function HomePage({
                 <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
                   {formatDate(post.date ?? "", locale)}
                 </p>
-                <h3 className="mt-3 text-[1.45rem] font-semibold leading-[1.2] tracking-[-0.03em] sm:text-[1.6rem]">
+                <h3 className="mt-3 text-[1.45rem] font-medium leading-[1.2] tracking-[-0.03em] sm:text-[1.6rem]">
                   {post.title}
                 </h3>
                 <p className="mt-3 max-w-[42rem] text-[1rem] leading-8 text-[color:color-mix(in_srgb,var(--muted-foreground)_92%,var(--foreground))]">

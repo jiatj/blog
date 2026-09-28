@@ -126,10 +126,8 @@ export function SiteShell({ locale, pathname, children }: SiteShellProps) {
             </div>
           </header>
           {children}
-          <footer className="border-t border-[var(--border-faint)] px-1 pb-10 pt-10 text-center">
-            <p className="text-[1.08rem] font-medium tracking-[-0.03em] text-[color:color-mix(in_srgb,var(--foreground)_92%,var(--muted-foreground))]">
-              AI Builder Lab
-            </p>
+          <footer className="border-t border-[var(--border-faint)] px-1 pb-10  text-center">
+        
             <p className="mt-3 text-[0.78rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
               &copy; AI Builder Lab
             </p>
