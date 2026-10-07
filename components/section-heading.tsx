@@ -15,7 +15,7 @@ export function SectionHeading({
     level === "hero"
       ? "mt-4 text-[clamp(3.45rem,7.15vw,5.25rem)] font-medium leading-[0.94] tracking-[-0.058em]"
       : level === "page"
-        ? "mt-3 text-4xl font-medium leading-[1.08] tracking-[-0.04em] sm:text-5xl"
+        ? "page-title mt-3"
         : "mt-2 text-[1.75rem] font-medium leading-[1.12] tracking-[-0.04em] sm:text-[2.1rem]";
 
   const descriptionClassName =
@@ -26,7 +26,7 @@ export function SectionHeading({
   return (
     <div className={level === "hero" ? "max-w-[33rem]" : "max-w-2xl"}>
       {eyebrow ? (
-        <p className="text-[0.66rem] uppercase tracking-[0.26em] text-[var(--muted-foreground-soft)]">
+        <p className="section-eyebrow text-[0.66rem] uppercase tracking-[0.26em] text-[var(--muted-foreground-soft)]">
           {eyebrow}
         </p>
       ) : null}

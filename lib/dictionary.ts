@@ -5,12 +5,12 @@ const dictionaries = {
     lang: "简体中文",
     switchLabel: "切换语言",
     home: {
-      eyebrow: "AI Builder Lab / Build in public",
+      eyebrow: "AI Builder Lab / 公开造物",
       title: "把想法，做出来。",
       intro: "这里展示我的文章、产品与实验项目。记录判断，公开过程，持续交付。",
       methodologyLink: "了解我的方法",
       methodologyHref: "/blog/building-calm-ai-sites",
-      projectsEyebrow: "Current focus",
+      projectsEyebrow: "当前关注",
       latestPosts: "最新文章",
       latestTools: "项目与实验",
       viewAllPosts: "查看全部文章",
@@ -18,12 +18,29 @@ const dictionaries = {
       projectNote: "持续构建中的产品、工具和实验项目。"
     },
     nav: {
+      home: "首页",
+      build: "造物",
       abl: "ABL教育",
       courses: "课程",
       tools: "项目",
       blog: "文章",
       discover: "发现",
+      more: "更多",
       about: "关于"
+    },
+    build: {
+      title: "造物", hero: "把想法变成真实的东西。",
+      description: "公开记录设计、构建、失败、修改和最终交付。看一个想法，如何一步步成为真实的作品。",
+      artifacts: "作品", overview: "概览", logs: "造物日志", roadmap: "路线图", outputs: "产出文件",
+      goal: "目标", why: "缘由", current: "当前进展", next: "下一步", currentStep: "当前步骤", progress: "进度", progressPending: "待规划",
+      nextLive: "下次直播", liveWindow: "直播时段", liveEntry: "直播入口", timezone: "北京时间",
+      step: "步骤", archived: "已取消", history: "路线图变更", logPrefix: "日志",
+      whatDid: "完成的工作", problems: "遇到的问题", decisions: "关键决策", result: "结果", video: "视频", replay: "观看回放",
+      backBuild: "全部作品", contents: "作品章节", previous: "上一篇", nextLog: "下一篇", logSequence: "按顺序阅读日志",
+      empty: "还没有公开的作品。真实的构建记录将在这里逐步展开。", emptyLogs: "还没有公开的造物日志。",
+      emptyRoadmap: "路线图尚未确定。", emptyOutputs: "还没有公开的产出文件。",
+      statuses: { IDEA: "构想中", BUILDING: "构建中", PAUSED: "已暂停", SHIPPED: "已交付" },
+      stepStatuses: { PENDING: "待开始", DOING: "进行中", DONE: "已完成" }
     },
     common: {
       backHome: "返回首页",
@@ -86,12 +103,29 @@ const dictionaries = {
       projectNote: "Projects are evidence of the method, not the headline."
     },
     nav: {
+      home: "Home",
+      build: "Build",
       abl: "ABL Education",
       courses: "Courses",
       tools: "Projects",
-      blog: "Articles",
+      blog: "Blog",
       discover: "Discover",
+      more: "More",
       about: "About"
+    },
+    build: {
+      title: "Build", hero: "Make ideas real.",
+      description: "Follow how things get built. A public record of design, building, failures, revisions, and delivery.",
+      artifacts: "Artifacts", overview: "Overview", logs: "Build Log", roadmap: "Roadmap", outputs: "Outputs",
+      goal: "Goal", why: "Why", current: "Current", next: "Next", currentStep: "Current step", progress: "Progress", progressPending: "Not planned yet",
+      nextLive: "Next live", liveWindow: "Scheduled live window", liveEntry: "Live entry", timezone: "Beijing time",
+      step: "Step", archived: "Cancelled", history: "Roadmap changes", logPrefix: "Build",
+      whatDid: "What I did", problems: "Problems", decisions: "Decisions", result: "Result", video: "Video", replay: "Watch replay",
+      backBuild: "All artifacts", contents: "Artifact sections", previous: "Previous", nextLog: "Next", logSequence: "Read logs in order",
+      empty: "No public artifacts yet. Real build records will unfold here.", emptyLogs: "No public build logs yet.",
+      emptyRoadmap: "The roadmap is still taking shape.", emptyOutputs: "No public outputs yet.",
+      statuses: { IDEA: "Idea", BUILDING: "Building", PAUSED: "Paused", SHIPPED: "Shipped" },
+      stepStatuses: { PENDING: "Pending", DOING: "In progress", DONE: "Completed" }
     },
     common: {
       backHome: "Back to home",

@@ -89,6 +89,16 @@ export function parseJsonFeed(text: string, feedUrl: string, site: ReadingSite):
   });
 }
 
+function errorDetails(error: unknown, depth = 0): string {
+  if (!(error instanceof Error)) return String(error);
+  const code = (error as Error & { code?: unknown }).code;
+  const message = typeof code === "string" ? `${code}: ${error.message}` : error.message || error.name;
+  if (depth >= 3) return message;
+  const causes = error instanceof AggregateError ? error.errors : error.cause ? [error.cause] : [];
+  const details = causes.map((cause: unknown) => errorDetails(cause, depth + 1)).join("; ");
+  return details ? `${message} (${details})` : message;
+}
+
 async function fetchText(url: string): Promise<string> {
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -112,7 +122,7 @@ async function fetchText(url: string): Promise<string> {
       lastError = error;
     }
   }
-  throw lastError;
+  throw new Error(`${url}: ${errorDetails(lastError)}`);
 }
 
 function discoverFeedLinks(html: string, siteUrl: string): string[] {

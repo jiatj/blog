@@ -1,5 +1,5 @@
 import { AboutRichText } from "@/components/about-rich-text";
-import { SectionHeading } from "@/components/section-heading";
+import { PageIntro } from "@/components/page-intro";
 import { getDictionary } from "@/lib/dictionary";
 import { buildMetadata } from "@/lib/metadata";
 import { siteConfig, locales, type Locale } from "@/lib/site-config";
@@ -40,10 +40,7 @@ export default async function AboutPage({
       <section className="overflow-hidden rounded-[1.95rem] border border-[color:color-mix(in_srgb,var(--border-soft)_90%,transparent)] bg-[color:color-mix(in_srgb,var(--card-strong)_92%,transparent)] shadow-[var(--shadow-soft)]">
         <div className="grid gap-10 px-6 py-8 sm:px-10 sm:py-10 lg:grid-cols-[minmax(0,1.24fr)_minmax(18rem,0.76fr)] lg:px-12 lg:py-12">
           <div className="max-w-[42rem]">
-            <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[var(--muted-foreground-soft)]">
-              About
-            </p>
-            <SectionHeading title={dict.about.title} description={dict.about.intro} level="page" />
+            <PageIntro section="about" title={dict.about.title} description={dict.about.intro} eyebrow="About / Builder" />
           </div>
           <div className="grid content-end gap-5">
             <div className="rounded-[1.35rem] border border-[color:color-mix(in_srgb,var(--border-faint)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--surface)_52%,transparent)] px-5 py-5">

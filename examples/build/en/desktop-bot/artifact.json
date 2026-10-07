@@ -1,0 +1,16 @@
+{
+  "id": "desktop-bot",
+  "title": "Example · Desktop Bot",
+  "summary": "Demonstrates status and empty-content layouts; not an actual project state.",
+  "status": "IDEA",
+  "publishState": "published",
+  "order": 4,
+  "goal": "Demonstrate artifact status.",
+  "why": "Inspect list and detail layouts.",
+  "current": "Example state, not real progress.",
+  "next": "Await real build records.",
+  "roadmap": [],
+  "logs": [],
+  "roadmapChanges": [],
+  "liveSessions": []
+}

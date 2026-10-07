@@ -5,14 +5,10 @@ import { EmptyState } from "@/components/empty-state";
 import { getDictionary } from "@/lib/dictionary";
 import { buildMetadata } from "@/lib/metadata";
 import { getPosts, getTools } from "@/lib/content";
-import { locales, type Locale } from "@/lib/site-config";
+import type { Locale } from "@/lib/site-config";
 import { formatDate } from "@/lib/utils";
 
-export const revalidate = 3600;
-
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params
@@ -30,7 +26,7 @@ export async function generateMetadata({
   });
 }
 
-function HeroVisual() {
+function HeroVisual({ locale }: { locale: Locale }) {
   return (
     <div className="relative mx-auto w-full max-w-[33rem] lg:mx-0 lg:max-w-[36rem]">
       <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_20%_20%,rgba(137,161,187,0.16),transparent_30%),radial-gradient(circle_at_78%_18%,rgba(255,255,255,0.05),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0))] blur-2xl" />
@@ -97,8 +93,8 @@ function HeroVisual() {
           </svg>
 
           <div className="relative mt-[8.6rem] flex items-center justify-between gap-3 border-t border-[rgba(255,255,255,0.08)] pt-3 text-[0.62rem] uppercase tracking-[0.18em] text-[rgba(197,210,223,0.7)] sm:mt-[9.8rem]">
-            <span>AI as context</span>
-            <span>Judgment as path</span>
+            <span>{locale === "zh" ? "以 AI 为环境" : "AI as context"}</span>
+            <span>{locale === "zh" ? "以判断为路径" : "Judgment as path"}</span>
           </div>
         </div>
       </div>
@@ -142,7 +138,7 @@ export default async function HomePage({
             </Link>
           </div>
           <div className="w-full lg:flex lg:justify-end">
-            <HeroVisual />
+            <HeroVisual locale={locale} />
           </div>
         </div>
       </section>
@@ -176,33 +172,45 @@ export default async function HomePage({
         )}
       </section>
 
-      <section className="grid gap-8 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-12">
-        <div className="pt-1">
-          <p className="text-[0.66rem] uppercase tracking-[0.28em] text-[var(--muted-foreground-soft)]">
-            {dict.common.latest}
-          </p>
-          <h2 className="mt-2 text-[1.75rem] font-medium leading-[1.08] tracking-[-0.045em] sm:text-[2.1rem]">
-            {dict.home.latestPosts}
-          </h2>
+      <section className="space-y-7">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <div>
+            <p className="text-[0.66rem] uppercase tracking-[0.28em] text-[var(--muted-foreground-soft)]">
+              {dict.common.latest}
+            </p>
+            <h2 className="mt-2 text-[1.75rem] font-medium leading-[1.08] tracking-[-0.045em] sm:text-[2.1rem]">
+              {dict.home.latestPosts}
+            </h2>
+          </div>
+          <Link
+            className="inline-flex items-center border-b border-[var(--link-underline)] pb-0.5 text-sm font-medium text-[var(--foreground)] transition hover:border-[var(--link-underline-hover)] hover:text-[var(--accent-ink)]"
+            href={`/${locale}/blog`}
+          >
+            {dict.home.viewAllPosts} {"->"}
+          </Link>
         </div>
-        <div className="space-y-7">
+        <div className="border-t border-[var(--border-soft)]">
           {posts.length ? (
             posts.slice(0, 3).map((post) => (
               <article
                 key={post.slug}
-                className="border-t border-[var(--border-faint)] pt-7 first:border-t-0 first:pt-0"
+                className="grid gap-3 border-b border-[var(--border-faint)] py-6 md:grid-cols-[8rem_minmax(0,1fr)_auto] md:gap-x-6 md:py-7"
               >
-                <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
+                <p className="text-[0.68rem] uppercase tracking-[0.16em] text-[var(--muted-foreground-soft)] md:pt-1 md:leading-6">
                   {formatDate(post.date ?? "", locale)}
                 </p>
-                <h3 className="mt-3 text-[1.45rem] font-medium leading-[1.2] tracking-[-0.03em] sm:text-[1.6rem]">
-                  {post.title}
-                </h3>
-                <p className="mt-3 max-w-[42rem] text-[1rem] leading-8 text-[color:color-mix(in_srgb,var(--muted-foreground)_92%,var(--foreground))]">
-                  {post.summary}
-                </p>
+                <div className="min-w-0">
+                  <h3 className="text-[1.3rem] font-medium leading-[1.35] tracking-[-0.03em] sm:text-[1.45rem]">
+                    <Link className="transition hover:text-[var(--accent-ink)]" href={`/${locale}/blog/${post.slug}`}>
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-[0.95rem] leading-7 text-[color:color-mix(in_srgb,var(--muted-foreground)_92%,var(--foreground))]">
+                    {post.summary}
+                  </p>
+                </div>
                 <Link
-                  className="mt-4 inline-flex items-center border-b border-[var(--link-underline)] pb-0.5 text-sm text-[var(--foreground)] transition hover:border-[var(--link-underline-hover)] hover:text-[var(--accent-ink)]"
+                  className="inline-flex items-center justify-self-start self-start whitespace-nowrap border-b border-[var(--link-underline)] pb-0.5 text-sm text-[var(--foreground)] transition hover:border-[var(--link-underline-hover)] hover:text-[var(--accent-ink)] md:mt-1"
                   href={`/${locale}/blog/${post.slug}`}
                 >
                   {dict.common.readArticle} {"->"}
@@ -210,15 +218,8 @@ export default async function HomePage({
               </article>
             ))
           ) : (
-            <p className="text-sm text-[var(--muted-foreground)]">{dict.blog.empty}</p>
+            <p className="py-6 text-sm text-[var(--muted-foreground)]">{dict.blog.empty}</p>
           )}
-
-          <Link
-            className="inline-flex items-center border-b border-[var(--link-underline)] pb-0.5 text-sm font-medium text-[var(--foreground)] transition hover:border-[var(--link-underline-hover)] hover:text-[var(--accent-ink)]"
-            href={`/${locale}/blog`}
-          >
-            {dict.home.viewAllPosts} {"->"}
-          </Link>
         </div>
       </section>
     </main>

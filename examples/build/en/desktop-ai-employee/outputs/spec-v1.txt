@@ -1,0 +1,2 @@
+This is a page demo file, not a real artifact specification or build output.
+Example V1: character, desk, screen. Dimensions and printability remain unverified.

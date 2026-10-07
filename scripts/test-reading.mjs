@@ -105,3 +105,29 @@ test("Daily scan saves only the requested Shanghai date", async () => {
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test("A network failure reports its URL and cause codes while another source is saved", async (t) => {
+  const failedUrl = "https://failed.example/feed";
+  writeFileSync(process.env.READING_SOURCES_FILE, JSON.stringify({
+    sources: [
+      { name: "Failed", url: "https://failed.example/", feedUrl: failedUrl, focusArea: "Failure" },
+      { name: "Healthy", url: "https://healthy.example/", feedUrl: "https://healthy.example/feed", focusArea: "Healthy" }
+    ]
+  }));
+  t.mock.method(globalThis, "fetch", async (url) => {
+    if (url === failedUrl) {
+      throw new TypeError("fetch failed", { cause: new AggregateError([
+        Object.assign(new Error("connect unreachable"), { code: "ENETUNREACH" }),
+        Object.assign(new Error("connect timed out"), { code: "ETIMEDOUT" })
+      ]) });
+    }
+    return new Response('<rss><channel><item><title>Healthy story</title><link>https://healthy.example/story</link><pubDate>Sun, 27 Sep 2026 01:00:00 GMT</pubDate></item></channel></rss>');
+  });
+  const result = await scanReadingSites({ date: "2026-09-27" });
+  assert.equal(result.saved, 1);
+  assert.equal(result.errors.length, 1);
+  assert.match(result.errors[0], /Failed: https:\/\/failed\.example\/feed: fetch failed/);
+  assert.match(result.errors[0], /ENETUNREACH/);
+  assert.match(result.errors[0], /ETIMEDOUT/);
+  assert.ok(getArticlesByDate("2026-09-27").some((article) => article.title === "Healthy story"));
+});

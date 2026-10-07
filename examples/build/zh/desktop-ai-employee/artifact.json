@@ -1,0 +1,151 @@
+{
+  "id": "desktop-ai-employee",
+  "title": "示例 · 桌面 AI 数字员工",
+  "subtitle": "页面演示，非真实构建记录",
+  "summary": "演示一个想法如何沿路线图推进，留下日志和产出文件。",
+  "status": "BUILDING",
+  "publishState": "published",
+  "order": 1,
+  "goal": "示例目标：为桌面 Bot 实验设计实体载体。",
+  "why": "展示连续的构建过程，让每次工作都能对应一个步骤。",
+  "current": "示例状态：两个步骤完成，第三步进行中。这不是实际作品进度。",
+  "next": "示例下一步：建立第一版模型。",
+  "currentStep": "model",
+  "roadmap": [
+    {
+      "id": "define",
+      "title": "定义 V1",
+      "status": "DONE",
+      "order": 1
+    },
+    {
+      "id": "concept",
+      "title": "概念设计",
+      "status": "DONE",
+      "order": 2
+    },
+    {
+      "id": "model",
+      "title": "建立 3D 模型",
+      "status": "DOING",
+      "order": 3
+    },
+    {
+      "id": "printability",
+      "title": "可打印性处理",
+      "status": "PENDING",
+      "order": 4
+    },
+    {
+      "id": "print",
+      "title": "第一次打印",
+      "status": "PENDING",
+      "order": 5
+    },
+    {
+      "id": "adjust",
+      "title": "调整结构",
+      "status": "PENDING",
+      "order": 6
+    },
+    {
+      "id": "finish",
+      "title": "完成 V1",
+      "status": "PENDING",
+      "order": 7
+    },
+    {
+      "id": "release",
+      "title": "发布",
+      "status": "PENDING",
+      "order": 8
+    }
+  ],
+  "roadmapChanges": [
+    {
+      "date": "2026-10-04",
+      "stepId": "printability",
+      "summary": "示例：增加可打印性检查步骤。"
+    }
+  ],
+  "logs": [
+    {
+      "id": "define-v1",
+      "number": 1,
+      "title": "示例：定义第一版范围",
+      "date": "2026-10-03",
+      "publishState": "published",
+      "roadmapStep": "define",
+      "goal": "演示如何记录一个明确的 V1 边界。",
+      "summary": "产出一份演示用范围说明；没有实际模型或打印成果。",
+      "whatDid": [
+        "记录人物、桌面和屏幕三个组成部分。",
+        "把后续 Bot 功能留到下一阶段。"
+      ],
+      "problems": [
+        "实体尺寸尚未验证。"
+      ],
+      "decisions": [
+        "先明确实体范围，再进入建模。"
+      ],
+      "outputs": [
+        {
+          "label": "示例范围说明.txt",
+          "href": "outputs/spec-v1.txt"
+        }
+      ]
+    },
+    {
+      "id": "concept-design",
+      "number": 2,
+      "title": "示例：梳理概念方案",
+      "date": "2026-10-04",
+      "publishState": "published",
+      "roadmapStep": "concept",
+      "goal": "演示第二次工作如何衔接前一步。",
+      "summary": "记录待验证的结构假设，下一步进入建模。此内容为演示。",
+      "whatDid": [
+        "将屏幕与人物分开设计。"
+      ],
+      "problems": [],
+      "decisions": [
+        "优先检查可打印性。"
+      ],
+      "outputs": []
+    },
+    {
+      "id": "private-draft",
+      "number": 3,
+      "title": "未公开的草稿",
+      "date": "2026-10-04",
+      "publishState": "draft",
+      "roadmapStep": "model",
+      "goal": "DRAFT",
+      "summary": "DRAFT",
+      "outputs": [
+        {
+          "label": "Private",
+          "href": "outputs/private.txt"
+        }
+      ]
+    }
+  ],
+  "liveSessions": [
+    {
+      "id": "first-model",
+      "title": "示例预告：第一次建模",
+      "roadmapStep": "model",
+      "startsAt": "2026-10-08T20:00:00+08:00",
+      "endsAt": "2026-10-08T21:00:00+08:00",
+      "status": "scheduled"
+    },
+    {
+      "id": "print-check",
+      "title": "示例预告：检查可打印性",
+      "roadmapStep": "printability",
+      "startsAt": "2026-10-10T20:00:00+08:00",
+      "endsAt": "2026-10-10T21:00:00+08:00",
+      "status": "scheduled"
+    }
+  ]
+}

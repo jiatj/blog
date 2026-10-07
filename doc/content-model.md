@@ -2,6 +2,8 @@
 
 这是当前 V1 的正式内容建模决定，供后续写作和扩展使用。
 
+造物使用独立模型：作品包含路线图、造物日志、路线图变更和直播预告；日志包含产出文件与可选视频。默认目录为 `content/build/{zh|en}/{作品ID}/artifact.json`，可用 `BUILD_CONTENT_DIR` 指向持久目录。作品和日志通过 `publishState` 控制公开，日志关联稳定步骤 ID；产出文件位于作品 `outputs/` 目录。此模型不复用 post/tool frontmatter，也不接入其 ingest API。字段、校验、示例及手工发布见 [造物规范](./build.md)。
+
 课程使用独立模型：每门课程一个 `course.json`，正文位于 `lessons/`，附件位于 `assets/`。发布后存入 `COURSE_CONTENT_DIR` 的版本目录，由当前版本指针读取，不复用 post/tool 的 frontmatter 或导入规则。具体格式、编写与手工发布步骤见 [课程规范](./courses.md)。
 
 ## 1. 目录结构
@@ -12,6 +14,9 @@ content/
     zh/
     en/
   tools/
+    zh/
+    en/
+  build/
     zh/
     en/
 ```

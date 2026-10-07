@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getCourses } from "@/lib/courses/read";
 import { buildMetadata } from "@/lib/metadata";
 import { CourseStatus } from "@/components/courses/shared";
+import { PageIntro } from "@/components/page-intro";
 import styles from "@/components/courses/course.module.css";
 
 export const dynamic = "force-dynamic";
@@ -22,15 +23,7 @@ export default async function CoursesPage({
   const courses = await getCourses();
   return (
     <main className={styles.root}>
-      <header className={styles.intro}>
-        <div>
-          <span className={styles.eyebrow}>Learn by building</span>
-          <h1><span>从听课，</span><span>到项目实战。</span></h1>
-          <p>
-            围绕真实问题，一步步完成自己的作品。</p>
-        </div>
-        
-      </header>
+      <PageIntro section="courses" title="从听课，到项目实战。" description="围绕真实问题，一步步完成自己的作品。" eyebrow="Learn by building" />
       <div className={styles.sectionLabel}>
         <span>课程目录</span>
         <span>{courses.length} 门课程 · 中文</span>

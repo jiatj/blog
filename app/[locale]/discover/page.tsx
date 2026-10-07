@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ReadingList } from "@/components/reading-list";
-import { SectionHeading } from "@/components/section-heading";
+import { PageIntro } from "@/components/page-intro";
 import { getArticleDates, getArticlesByDate, getLatestArticleDate, loadReadingSites, previousShanghaiDate } from "@/lib/reading/store";
 import { locales, type Locale } from "@/lib/site-config";
 
@@ -51,14 +51,14 @@ export default async function DiscoverPage({
 
   return (
     <main className="pb-12">
-      <section className="mb-10 border-b border-[var(--border-soft)] pb-9 pt-5">
-        <SectionHeading
+      <div className="mb-10">
+        <PageIntro
+          section="discover"
           description={locale === "zh" ? "从我关注的网站收集新文章，按日期安静地读。" : "Recent articles from sites I follow, organized by day."}
           eyebrow="DISCOVER / READING"
-          level="page"
           title={locale === "zh" ? "找回深度阅读的习惯。" : "Make room for deeper reading."}
         />
-      </section>
+      </div>
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14">
         <section aria-label={locale === "zh" ? "每日文章" : "Daily articles"}>
           <div className="mb-6 flex flex-wrap items-end justify-between gap-3">

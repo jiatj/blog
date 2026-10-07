@@ -1,0 +1,16 @@
+{
+  "id": "vision-search",
+  "title": "示例 · 视频检索",
+  "summary": "用于演示状态和空内容布局，不代表实际作品状态。",
+  "status": "PAUSED",
+  "publishState": "published",
+  "order": 2,
+  "goal": "演示作品状态。",
+  "why": "检查列表和详情布局。",
+  "current": "示例状态，非真实进度。",
+  "next": "待填写真实记录。",
+  "roadmap": [],
+  "logs": [],
+  "roadmapChanges": [],
+  "liveSessions": []
+}

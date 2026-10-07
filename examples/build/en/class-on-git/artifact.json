@@ -1,0 +1,23 @@
+{
+  "id": "class-on-git",
+  "title": "Example · ClassOnGit",
+  "summary": "Demonstrates status and empty-content layouts; not an actual project state.",
+  "status": "SHIPPED",
+  "publishState": "published",
+  "order": 3,
+  "goal": "Demonstrate artifact status.",
+  "why": "Inspect list and detail layouts.",
+  "current": "Example state, not real progress.",
+  "next": "Await real build records.",
+  "roadmap": [
+    {
+      "id": "delivery",
+      "title": "Example delivery step",
+      "status": "DONE",
+      "order": 1
+    }
+  ],
+  "logs": [],
+  "roadmapChanges": [],
+  "liveSessions": []
+}

@@ -1,15 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
-import { getDictionary } from "@/lib/dictionary";
-import { siteConfig, type Locale } from "@/lib/site-config";
+import { type Locale } from "@/lib/site-config";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { LogoMark } from "@/components/logo-mark";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SiteNavigation } from "@/components/site-navigation";
 
 type SiteShellProps = {
   locale: Locale;
@@ -18,7 +17,6 @@ type SiteShellProps = {
 };
 
 export function SiteShell({ locale, pathname, children }: SiteShellProps) {
-  const dict = getDictionary(locale);
   const currentPath = usePathname() ?? pathname;
   const talknEntryUrl = process.env.NEXT_PUBLIC_TALKN_ENTRY_URL;
   let talknScriptUrl: string | null = null;
@@ -59,75 +57,39 @@ export function SiteShell({ locale, pathname, children }: SiteShellProps) {
     return "route-home";
   }, [currentPath]);
 
-  const isActive = (href: string) =>
-    href === "/"
-      ? currentPath === `/${locale}`
-      : currentPath === `/${locale}${href}` || currentPath.startsWith(`/${locale}${href}/`);
-
   return (
     <div className="min-h-screen">
       <div className={`site-background ${routeTone}`} aria-hidden="true" />
       <div className="relative z-10 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
         <div className="mx-auto flex max-w-[76rem] flex-col gap-11">
           <header className="sticky top-0 z-30">
-            <div className="rounded-[var(--radius-header)] border border-[color:color-mix(in_srgb,var(--border-faint)_76%,transparent)] bg-[color:color-mix(in_srgb,var(--header-surface)_96%,transparent)] px-4 py-2.5 shadow-[var(--shadow-soft)] backdrop-blur-xl sm:px-5">
-              <div className="flex items-center justify-between gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div className="rounded-[var(--radius-header)] border border-[color:color-mix(in_srgb,var(--border-faint)_76%,transparent)] bg-[color:color-mix(in_srgb,var(--header-surface)_96%,transparent)] px-2 py-2.5 shadow-[var(--shadow-soft)] backdrop-blur-xl sm:px-5">
+              <div className="flex items-center justify-between gap-2 sm:gap-3 lg:flex-row lg:items-center lg:justify-between">
                 <div className="shrink-0">
                   <LogoMark locale={locale} />
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="hidden items-center rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1 sm:flex">
-                    <nav className="flex items-center gap-1 pr-1.5">
-                      {siteConfig.nav.map((item) => (
-                        <Link
-                          key={item.key}
-                          className={`rounded-[var(--radius-pill)] px-3.5 py-1.5 text-[0.96rem] font-medium transition ${
-                            isActive(item.href)
-                              ? "border border-[var(--pill-border-strong)] bg-[var(--pill-surface-active)] text-[var(--pill-text-strong)]"
-                              : "border border-transparent text-[color:color-mix(in_srgb,var(--pill-text)_88%,var(--foreground))] hover:bg-[var(--pill-surface-active)] hover:text-[var(--pill-text-strong)]"
-                          }`}
-                          prefetch={item.key === "courses" ? false : undefined}
-                          href={`/${item.key === "courses" ? "zh" : locale}${item.href}`}
-                        >
-                          {dict.nav[item.key as keyof typeof dict.nav]}
-                        </Link>
-                      ))}
-                    </nav>
+                  <div className="hidden items-center rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1 xl:flex">
+                    <SiteNavigation key={currentPath} locale={locale} pathname={currentPath} />
                     <div className="h-4 w-px bg-[color:color-mix(in_srgb,var(--pill-border)_82%,transparent)]" />
                     <div className="ml-1 inline-flex items-center gap-0.5">
                       <LanguageSwitcher locale={locale} pathname={currentPath} />
                       <ThemeToggle locale={locale} />
                     </div>
                   </div>
-                  <div className="inline-flex items-center gap-0.5 rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1 sm:hidden">
+                  <div className="inline-flex items-center gap-0.5 rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1 xl:hidden">
                     <LanguageSwitcher locale={locale} pathname={currentPath} />
                     <ThemeToggle locale={locale} />
                   </div>
                 </div>
               </div>
-              <div className="mt-3 sm:hidden">
-                <nav className="flex items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden rounded-[var(--radius-pill)] border border-[color:color-mix(in_srgb,var(--pill-border)_94%,transparent)] bg-[color:color-mix(in_srgb,var(--pill-surface)_96%,transparent)] p-1">
-                  {siteConfig.nav.map((item) => (
-                    <Link
-                      key={item.key}
-                      className={`min-w-fit flex-1 rounded-[var(--radius-pill)] border px-2 py-2 text-center text-[0.85rem] font-medium transition ${
-                        isActive(item.href)
-                          ? "border-[var(--pill-border-strong)] bg-[var(--pill-surface-active)] text-[var(--pill-text-strong)]"
-                          : "border-transparent text-[color:color-mix(in_srgb,var(--pill-text)_88%,var(--foreground))] hover:bg-[var(--pill-surface-active)] hover:text-[var(--pill-text-strong)]"
-                      }`}
-                      prefetch={item.key === "courses" ? false : undefined}
-                      href={`/${item.key === "courses" ? "zh" : locale}${item.href}`}
-                    >
-                      {dict.nav[item.key as keyof typeof dict.nav]}
-                    </Link>
-                  ))}
-                </nav>
+              <div className="mt-3 xl:hidden">
+                <SiteNavigation compact key={currentPath} locale={locale} pathname={currentPath} />
               </div>
             </div>
           </header>
           {children}
           <footer className="border-t border-[var(--border-faint)] px-1 pb-10  text-center">
-        
             <p className="mt-3 text-[0.78rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
               &copy; AI Builder Lab
             </p>

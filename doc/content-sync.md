@@ -115,6 +115,8 @@ v1 只处理：
 - 保留原内容单元中的子目录结构
 - 每次 upsert 前先清空当前内容单元的目标资源目录，避免陈旧资源残留
 
+生产模式下，Next.js 在服务启动时扫描 `public/`。对启动后新增的图片，`next.config.ts` 将未命中的 `/posts/...`、`/tools/...` 请求转到 `/api/content-assets/...`，按请求读取对应目录；文件路径及正文 URL 不变。兜底接口支持 PNG、JPEG、WebP、GIF、AVIF、SVG、ICO，不缓存成功或 404 响应，并拒绝越界路径及指向目录外的子级符号链接。首次上线此修复需构建并重启，之后发布图片无需重启。
+
 ### 4. 路径改写
 
 文件：
@@ -171,7 +173,7 @@ ingest 成功后会主动失效：
 - tools 列表页
 - tools 详情页
 
-它们现在带有 `revalidate = 3600`，并依赖 ingest 后的 `revalidatePath` 生效。  
+它们使用 `dynamic = "force-dynamic"`，每次页面请求读取最终内容文件，不再缓存构建时的内容列表。直接新增或修改 `content/posts/{locale}/`、`content/tools/{locale}/` 下的 `.md` / `.mdx` 后，刷新页面即可看到更新，无需重新构建或重启。已打开的页面不会自动推送更新；子目录源文件和相对图片仍需先经 ingest 转换。ingest 保留原有的 `revalidatePath` 调用。
 这意味着：
 
 - 不需要把相对路径转换逻辑塞进页面层

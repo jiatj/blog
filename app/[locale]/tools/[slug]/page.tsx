@@ -1,17 +1,11 @@
 import { notFound } from "next/navigation";
 
-import { getToolBySlug, getTools, renderMdx } from "@/lib/content";
+import { getToolBySlug, renderMdx } from "@/lib/content";
 import { getDictionary } from "@/lib/dictionary";
 import { buildMetadata } from "@/lib/metadata";
-import { locales, type Locale } from "@/lib/site-config";
+import type { Locale } from "@/lib/site-config";
 
-export const revalidate = 3600;
-export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  const all = await Promise.all(locales.map(async (locale) => ({ locale, tools: await getTools(locale) })));
-  return all.flatMap(({ locale, tools }) => tools.map((tool) => ({ locale, slug: tool.slug ?? "" })));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params
@@ -49,17 +43,17 @@ export default async function ToolDetailPage({
   const content = await renderMdx(tool.content);
 
   return (
-    <main className="mx-auto w-full max-w-[58rem]">
+    <main className="mx-auto w-full max-w-[48rem] px-1 pb-4">
       <article className="rounded-[1.75rem] border border-[var(--border-soft)] bg-[color:color-mix(in_srgb,var(--card-strong)_90%,transparent)] px-6 py-8 shadow-[var(--shadow-soft)] sm:px-9 sm:py-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="max-w-[34rem]">
+          <div className="min-w-0 flex-1 basis-[20rem]">
             <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[var(--muted-foreground-soft)]">
               {tool.toolStatus ?? dict.tools.status}
             </p>
             <h1 className="mt-3 text-[2rem] font-medium leading-[1.16] tracking-[-0.04em] sm:text-[2.35rem]">
               {tool.title}
             </h1>
-            <p className="mt-4 max-w-[34rem] text-[0.98rem] leading-8 text-[var(--muted-foreground)]">
+            <p className="mt-4 text-[0.98rem] leading-8 text-[var(--muted-foreground)]">
               {tool.summary}
             </p>
           </div>
@@ -86,7 +80,7 @@ export default async function ToolDetailPage({
             </a>
           ) : null}
         </div>
-        <div className="prose mt-10 max-w-[42rem]">{content}</div>
+        <div className="prose mt-10 max-w-none">{content}</div>
       </article>
     </main>
   );

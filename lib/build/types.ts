@@ -1,0 +1,54 @@
+export type BuildLocale = "zh" | "en";
+export type ArtifactStatus = "IDEA" | "BUILDING" | "PAUSED" | "SHIPPED";
+export type PublishState = "draft" | "published";
+export type RoadmapStep = {
+  id: string;
+  title: string;
+  status: "PENDING" | "DOING" | "DONE";
+  order: number;
+  archived: boolean;
+};
+export type Output = { label: string; href: string };
+export type BuildLog = {
+  id: string;
+  number: number;
+  title: string;
+  date: string;
+  publishState: PublishState;
+  roadmapStep: string;
+  goal: string;
+  summary: string;
+  whatDid: string[];
+  problems: string[];
+  decisions: string[];
+  outputs: Output[];
+  video?: string;
+};
+export type LiveSession = {
+  id: string;
+  title: string;
+  roadmapStep: string;
+  startsAt: string;
+  endsAt: string;
+  status: "scheduled" | "completed" | "cancelled";
+  url?: string;
+};
+export type Artifact = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  summary: string;
+  status: ArtifactStatus;
+  publishState: PublishState;
+  order: number;
+  goal: string;
+  why: string;
+  current: string;
+  next: string;
+  currentStep?: string;
+  roadmap: RoadmapStep[];
+  roadmapChanges: { date: string; stepId: string; summary: string }[];
+  logs: BuildLog[];
+  liveSessions: LiveSession[];
+};
+export type LiveEntry = LiveSession & { artifactId: string; artifactTitle: string };

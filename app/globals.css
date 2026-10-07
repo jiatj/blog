@@ -112,6 +112,124 @@ img {
   mix-blend-mode: screen;
 }
 
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.site-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  padding: .35rem .8rem;
+  color: var(--pill-text);
+  font-size: .94rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.site-nav-link:hover,
+.site-nav-dropdown-link:hover {
+  background: var(--pill-surface-active);
+  color: var(--pill-text-strong);
+}
+
+.site-nav-link[aria-current="page"],
+.site-nav-link[data-active="true"] {
+  border-color: var(--pill-border-strong);
+  background: var(--pill-surface-active);
+  color: var(--pill-text-strong);
+}
+
+.site-nav-desktop { padding-right: .375rem; }
+.site-nav-compact {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: .125rem;
+  border: 1px solid var(--pill-border);
+  border-radius: var(--radius-pill);
+  background: var(--pill-surface);
+  padding: .25rem;
+}
+.site-nav-compact .site-nav-link { min-width: 0; padding: .4rem .125rem; font-size: clamp(.75rem, 2.9vw, .9rem); }
+.site-nav-more { position: relative; min-width: 0; }
+.site-nav-more-trigger { width: 100%; gap: .2rem; cursor: pointer; }
+.site-nav-more-trigger svg { width: .75rem; height: .75rem; flex-shrink: 0; }
+.site-nav-more-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.site-nav-dropdown {
+  position: absolute;
+  top: calc(100% + .75rem);
+  right: 0;
+  z-index: 40;
+  width: 11rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  background: var(--surface);
+  padding: .4rem;
+  box-shadow: var(--shadow);
+}
+.site-nav-dropdown-link { display: flex; align-items: center; min-height: 2.75rem; border-radius: .65rem; padding: .5rem .8rem; font-size: .9rem; color: var(--pill-text); }
+.site-nav-dropdown-link[aria-current="page"] { background: var(--pill-surface-active); color: var(--pill-text-strong); font-weight: 500; }
+
+.page-title {
+  font-family: var(--font-ui);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.04em;
+  overflow-wrap: anywhere;
+}
+
+.page-intro {
+  --section-tone: #587091;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(7rem, 13vw, 10rem);
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--section-tone) 20%, var(--border-faint));
+  padding: 1.25rem 0 2.5rem;
+}
+.page-intro[data-section="build"] { --section-tone: #b57845; }
+.page-intro[data-section="courses"] { --section-tone: #4d8a78; }
+.page-intro[data-section="tools"] { --section-tone: #587da6; }
+.page-intro[data-section="blog"] { --section-tone: #8e708f; }
+.page-intro[data-section="discover"] { --section-tone: #4e8a91; }
+.page-intro[data-section="about"] { --section-tone: #a38a5c; }
+.dark .page-intro[data-section="build"] { --section-tone: #d6a275; }
+.dark .page-intro[data-section="courses"] { --section-tone: #83b6a5; }
+.dark .page-intro[data-section="tools"] { --section-tone: #8eafd4; }
+.dark .page-intro[data-section="blog"] { --section-tone: #b49cb5; }
+.dark .page-intro[data-section="discover"] { --section-tone: #83b5bb; }
+.dark .page-intro[data-section="about"] { --section-tone: #c8b186; }
+.page-intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 95% 35%, color-mix(in srgb, var(--section-tone) 8%, transparent), transparent 55%);
+}
+.page-intro-copy { min-width: 0; }
+.page-motif { width: 100%; height: auto; color: var(--section-tone); opacity: .8; pointer-events: none; }
+
+.article-detail { overflow-wrap: anywhere; }
+.article-detail .prose pre { overflow-wrap: normal; }
+.article-detail .prose table { display: block; max-width: 100%; overflow-x: auto; }
+
+@media (max-width: 639px) {
+  .page-intro { display: block; padding-top: 1.25rem; padding-bottom: 1.75rem; }
+  .page-intro-copy { padding-top: 2rem; }
+  .page-intro .section-eyebrow { position: absolute; top: 1.2rem; left: 0; max-width: calc(100% - 5rem); }
+  .page-motif { position: absolute; top: 0; right: 0; width: 4rem; opacity: .7; }
+}
+
 .prose {
   font-size: clamp(1rem, 0.97rem + 0.18vw, 1.08rem);
   line-height: 2;
@@ -158,6 +276,14 @@ img {
 .prose ul,
 .prose ol {
   padding-left: 1.35rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
 }
 
 .prose li + li {

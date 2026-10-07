@@ -40,9 +40,13 @@ export const siteConfig = {
     }
   ],
   nav: [
-    { href: "/blog", key: "blog" },
-    { href: "/tools", key: "tools" },
+    { href: "", key: "home" },
+    { href: "/build", key: "build" },
     { href: "/courses", key: "courses" },
+    { href: "/tools", key: "tools" }
+  ],
+  moreNav: [
+    { href: "/blog", key: "blog" },
     { href: "/discover", key: "discover" },
     { href: "/about", key: "about" }
   ]

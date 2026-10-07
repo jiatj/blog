@@ -1,0 +1,151 @@
+{
+  "id": "desktop-ai-employee",
+  "title": "Example · Desktop AI Employee",
+  "subtitle": "Page demo, not a real build record",
+  "summary": "A demonstration of how an idea moves through a roadmap, with logs and outputs.",
+  "status": "BUILDING",
+  "publishState": "published",
+  "order": 1,
+  "goal": "Example goal: design a physical carrier for desktop bot experiments.",
+  "why": "Show a continuous build process, with each work session linked to a step.",
+  "current": "Example state: two steps completed and the third in progress. This is not actual project progress.",
+  "next": "Example next step: build the first model.",
+  "currentStep": "model",
+  "roadmap": [
+    {
+      "id": "define",
+      "title": "Define V1",
+      "status": "DONE",
+      "order": 1
+    },
+    {
+      "id": "concept",
+      "title": "Concept design",
+      "status": "DONE",
+      "order": 2
+    },
+    {
+      "id": "model",
+      "title": "Build the 3D model",
+      "status": "DOING",
+      "order": 3
+    },
+    {
+      "id": "printability",
+      "title": "Check printability",
+      "status": "PENDING",
+      "order": 4
+    },
+    {
+      "id": "print",
+      "title": "First print",
+      "status": "PENDING",
+      "order": 5
+    },
+    {
+      "id": "adjust",
+      "title": "Adjust the structure",
+      "status": "PENDING",
+      "order": 6
+    },
+    {
+      "id": "finish",
+      "title": "Finish V1",
+      "status": "PENDING",
+      "order": 7
+    },
+    {
+      "id": "release",
+      "title": "Release",
+      "status": "PENDING",
+      "order": 8
+    }
+  ],
+  "roadmapChanges": [
+    {
+      "date": "2026-10-04",
+      "stepId": "printability",
+      "summary": "Example: add a printability check."
+    }
+  ],
+  "logs": [
+    {
+      "id": "define-v1",
+      "number": 1,
+      "title": "Example: define the first version",
+      "date": "2026-10-03",
+      "publishState": "published",
+      "roadmapStep": "define",
+      "goal": "Demonstrate how to record a clear V1 scope.",
+      "summary": "Produced a demo scope note; no actual model or print was made.",
+      "whatDid": [
+        "Documented the character, desk, and screen components.",
+        "Deferred bot functions to a later phase."
+      ],
+      "problems": [
+        "Physical dimensions have not been verified."
+      ],
+      "decisions": [
+        "Define the physical scope before modeling."
+      ],
+      "outputs": [
+        {
+          "label": "Example scope note.txt",
+          "href": "outputs/spec-v1.txt"
+        }
+      ]
+    },
+    {
+      "id": "concept-design",
+      "number": 2,
+      "title": "Example: review the concept",
+      "date": "2026-10-04",
+      "publishState": "published",
+      "roadmapStep": "concept",
+      "goal": "Demonstrate how a second session follows the previous step.",
+      "summary": "Recorded structural assumptions to validate before modeling. This is demo content.",
+      "whatDid": [
+        "Designed the screen separately from the character."
+      ],
+      "problems": [],
+      "decisions": [
+        "Prioritize printability checks."
+      ],
+      "outputs": []
+    },
+    {
+      "id": "private-draft",
+      "number": 3,
+      "title": "Unpublished draft",
+      "date": "2026-10-04",
+      "publishState": "draft",
+      "roadmapStep": "model",
+      "goal": "DRAFT",
+      "summary": "DRAFT",
+      "outputs": [
+        {
+          "label": "Private",
+          "href": "outputs/private.txt"
+        }
+      ]
+    }
+  ],
+  "liveSessions": [
+    {
+      "id": "first-model",
+      "title": "Example schedule: first model",
+      "roadmapStep": "model",
+      "startsAt": "2026-10-08T20:00:00+08:00",
+      "endsAt": "2026-10-08T21:00:00+08:00",
+      "status": "scheduled"
+    },
+    {
+      "id": "print-check",
+      "title": "Example schedule: check printability",
+      "roadmapStep": "printability",
+      "startsAt": "2026-10-10T20:00:00+08:00",
+      "endsAt": "2026-10-10T21:00:00+08:00",
+      "status": "scheduled"
+    }
+  ]
+}
