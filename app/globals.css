@@ -186,7 +186,7 @@ img {
 }
 
 .page-intro {
-  --section-tone: #587091;
+  --section-tone: var(--accent-ink);
   position: relative;
   isolation: isolate;
   display: grid;
@@ -196,18 +196,12 @@ img {
   border-bottom: 1px solid color-mix(in srgb, var(--section-tone) 20%, var(--border-faint));
   padding: 1.25rem 0 2.5rem;
 }
-.page-intro[data-section="build"] { --section-tone: #b57845; }
-.page-intro[data-section="courses"] { --section-tone: #4d8a78; }
-.page-intro[data-section="tools"] { --section-tone: #587da6; }
-.page-intro[data-section="blog"] { --section-tone: #8e708f; }
-.page-intro[data-section="discover"] { --section-tone: #4e8a91; }
-.page-intro[data-section="about"] { --section-tone: #a38a5c; }
-.dark .page-intro[data-section="build"] { --section-tone: #d6a275; }
-.dark .page-intro[data-section="courses"] { --section-tone: #83b6a5; }
-.dark .page-intro[data-section="tools"] { --section-tone: #8eafd4; }
-.dark .page-intro[data-section="blog"] { --section-tone: #b49cb5; }
-.dark .page-intro[data-section="discover"] { --section-tone: #83b5bb; }
-.dark .page-intro[data-section="about"] { --section-tone: #c8b186; }
+.page-intro[data-section="build"] { --section-tone: var(--accent); }
+.page-intro[data-section="courses"] { --section-tone: color-mix(in srgb, var(--accent) 85%, var(--surface)); }
+.page-intro[data-section="tools"] { --section-tone: color-mix(in srgb, var(--accent-ink) 85%, var(--accent)); }
+.page-intro[data-section="blog"] { --section-tone: color-mix(in srgb, var(--accent) 75%, var(--accent-ink)); }
+.page-intro[data-section="discover"] { --section-tone: color-mix(in srgb, var(--accent) 72%, var(--surface)); }
+.page-intro[data-section="about"] { --section-tone: color-mix(in srgb, var(--accent-ink) 72%, var(--accent)); }
 .page-intro::before {
   content: "";
   position: absolute;
