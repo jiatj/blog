@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/json-ld";
 
-import { getToolBySlug, renderMdx } from "@/lib/content";
+import { getToolBySlug, renderMdx, getContentLocales } from "@/lib/content";
 import { getDictionary } from "@/lib/dictionary";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, pageUrl } from "@/lib/metadata";
 import type { Locale } from "@/lib/site-config";
+import { authorData } from "@/lib/structured-data";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +25,9 @@ export async function generateMetadata({
     locale,
     title: tool.seoTitle ?? tool.title ?? "",
     description: tool.seoDescription ?? tool.summary ?? "",
-    path: `/tools/${slug}`
+    path: `/tools/${slug}`,
+    availableLocales: await getContentLocales("tool", slug),
+    image: tool.cover
   });
 }
 
@@ -44,6 +48,7 @@ export default async function ToolDetailPage({
 
   return (
     <main className="mx-auto w-full max-w-[48rem] px-1 pb-4">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "SoftwareApplication", name: tool.title, description: tool.summary, url: pageUrl(locale, `/tools/${slug}`), inLanguage: locale === "zh" ? "zh-CN" : "en", author: authorData(locale) }} />
       <article className="rounded-[1.75rem] border border-[var(--border-soft)] bg-[color:color-mix(in_srgb,var(--card-strong)_90%,transparent)] px-6 py-8 shadow-[var(--shadow-soft)] sm:px-9 sm:py-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0 flex-1 basis-[20rem]">

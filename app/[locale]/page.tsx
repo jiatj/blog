@@ -1,11 +1,13 @@
 import Link from "next/link";
 
 import { HomeProjectCard } from "@/components/cards";
+import { JsonLd } from "@/components/json-ld";
 import { EmptyState } from "@/components/empty-state";
 import { getDictionary } from "@/lib/dictionary";
 import { buildMetadata } from "@/lib/metadata";
 import { getPosts, getTools } from "@/lib/content";
-import type { Locale } from "@/lib/site-config";
+import { siteConfig, type Locale } from "@/lib/site-config";
+import { authorData } from "@/lib/structured-data";
 import { formatDate } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -20,8 +22,8 @@ export async function generateMetadata({
 
   return buildMetadata({
     locale,
-    title: dict.home.title,
-    description: dict.home.intro,
+    title: dict.home.seoTitle,
+    description: locale === "zh" ? siteConfig.description : "AI Builder Lab by T.J. Jia shares real products, development methods, and delivery experience in AI application development, AI coding, and AI agents.",
     path: ""
   });
 }
@@ -115,6 +117,7 @@ export default async function HomePage({
 
   return (
     <main className="space-y-16 pb-6 sm:space-y-20">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", "@id": `${siteConfig.url}/#website`, name: siteConfig.name, url: siteConfig.url, description: dict.home.intro, inLanguage: locale === "zh" ? "zh-CN" : "en", creator: authorData(locale) }} />
       <section className="rounded-[2rem] border border-[color:color-mix(in_srgb,var(--border-soft)_88%,transparent)] bg-[color:color-mix(in_srgb,var(--hero-surface)_96%,transparent)] px-6 py-8 shadow-[var(--shadow)] sm:px-10 sm:py-10 lg:px-12 lg:py-12">
         <div className="grid gap-9 lg:grid-cols-[minmax(0,33rem)_minmax(24rem,1fr)] lg:items-center lg:gap-10">
           <div className="max-w-[31rem]">

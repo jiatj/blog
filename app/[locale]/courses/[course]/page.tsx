@@ -2,6 +2,10 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getCourse } from "@/lib/courses/read";
 import { buildMetadata } from "@/lib/metadata";
+import { pageUrl } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
+import { siteConfig } from "@/lib/site-config";
+import { authorData } from "@/lib/structured-data";
 import { CourseStatus, LessonRow } from "@/components/courses/shared";
 import styles from "@/components/courses/course.module.css";
 
@@ -15,6 +19,8 @@ export async function generateMetadata({ params }: Props) {
         title: course.title,
         description: course.summary,
         path: `/courses/${course.slug}`,
+        availableLocales: ["zh"],
+        image: course.cover,
       })
     : {};
 }
@@ -27,6 +33,7 @@ export default async function CoursePage({ params }: Props) {
   const references = course.pages.filter((page) => page.kind === "reference");
   return (
     <main className={styles.root}>
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "Course", name: course.title, description: course.summary, url: pageUrl("zh", `/courses/${slug}`), inLanguage: "zh-CN", provider: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url }, author: authorData("zh") }} />
       <nav className={styles.breadcrumbs} aria-label="面包屑">
         <Link prefetch={false} href="/zh/courses">
           全部课程
@@ -50,7 +57,7 @@ export default async function CoursePage({ params }: Props) {
           </Link>
         </div>
         {course.cover && (
-          <img src={course.cover} alt="" className={styles.cover} />
+          <img src={course.cover} alt={`${course.title}课程封面`} className={styles.cover} />
         )}
       </header>
       <dl className={styles.heroDetails}>

@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { OutputLink } from "@/components/build/shared";
 import styles from "@/components/build/build.module.css";
 import { getDictionary } from "@/lib/dictionary";
-import { getBuildArtifact } from "@/lib/build/read";
+import { getBuildArtifact, getBuildLocales } from "@/lib/build/read";
+import { JsonLd } from "@/components/json-ld";
+import { articleData } from "@/lib/structured-data";
 import { buildDate } from "@/lib/build/model";
 import { buildMetadata } from "@/lib/metadata";
 import type { Locale } from "@/lib/site-config";
@@ -12,7 +14,7 @@ export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ locale: Locale; artifact: string; log: string }> };
 export async function generateMetadata({ params }: Props) {
   const { locale, artifact, log } = await params; const a = await getBuildArtifact(locale, artifact); const entry = a?.logs.find((l) => l.id === log);
-  return a && entry ? buildMetadata({ locale, title: `${entry.title} · ${a.title}`, description: entry.summary, path: `/build/${a.id}/logs/${entry.id}` }) : {};
+  return a && entry ? buildMetadata({ locale, title: `${entry.title} · ${a.title}`, description: entry.summary, path: `/build/${a.id}/logs/${entry.id}`, availableLocales: await getBuildLocales(a.id, entry.id), type: "article", publishedTime: entry.date }) : {};
 }
 export default async function LogPage({ params }: Props) {
   const { locale, artifact, log } = await params; const a = await getBuildArtifact(locale, artifact);
@@ -21,6 +23,7 @@ export default async function LogPage({ params }: Props) {
   const d = getDictionary(locale).build; const index = a.logs.findIndex((l) => l.id === log);
   const previous = a.logs[index - 1]; const next = a.logs[index + 1];
   return <main className={`${styles.page} ${styles.logArticle}`}>
+    <JsonLd data={articleData({ locale, path: `/build/${a.id}/logs/${entry.id}`, title: `${entry.title} · ${a.title}`, summary: entry.summary, date: entry.date })} />
     <Link className={styles.link} href={`/${locale}/build/${a.id}#logs`}>← {a.title}</Link>
     <article>
       <header className={styles.hero} style={{ gridTemplateColumns: "1fr" }}>

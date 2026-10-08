@@ -1,8 +1,9 @@
 export const siteConfig = {
   name: "AI Builder Lab",
-  description: "AI Builder Lab · 文章、产品与实验项目",
-  url: "https://aibuilderlab.dev",
+  description: "AI Builder Lab 由贾铁军创建，分享 AI 应用开发、AI Coding、AI Agent 与项目实战中的真实产品、开发方法和交付经验。",
+  url: "https://www.tiejunjia.com",
   author: "T.J. Jia",
+  authorZh: "贾铁军",
   email: "jiatj@outlook.com",
   socialChannels: [
     {
@@ -13,7 +14,7 @@ export const siteConfig = {
       hintEn: "Scan to follow",
       ctaZh: "查看主页",
       ctaEn: "View page",
-      href: "https://example.com/wechat-official",
+      href: "/contact/gongzhonghao256.png",
       qrSrc: "/contact/gongzhonghao256.png"
     },
     {
@@ -24,7 +25,7 @@ export const siteConfig = {
       hintEn: "Scan to enter",
       ctaZh: "访问页面",
       ctaEn: "Visit page",
-      href: "https://example.com/wechat-video",
+      href: "/contact/shipinhao256.png",
       qrSrc: "/contact/shipinhao256.png"
     },
     {
@@ -35,7 +36,7 @@ export const siteConfig = {
       hintEn: "Scan to enter",
       ctaZh: "访问主页",
       ctaEn: "Visit page",
-      href: "https://example.com/douyin",
+      href: "/contact/douyin256.png",
       qrSrc: "/contact/douyin256.png"
     }
   ],

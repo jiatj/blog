@@ -7,7 +7,8 @@ const dictionaries = {
     home: {
       eyebrow: "AI Builder Lab / 公开造物",
       title: "把想法，做出来。",
-      intro: "这里展示我的文章、产品与实验项目。记录判断，公开过程，持续交付。",
+      intro: "分享 AI 应用开发、AI Coding 与 AI 项目实战中的文章、产品和实验。记录判断，公开过程，持续交付。",
+      seoTitle: "AI 应用开发、AI Coding 与项目实战",
       methodologyLink: "了解我的方法",
       methodologyHref: "/blog/building-calm-ai-sites",
       projectsEyebrow: "当前关注",
@@ -58,18 +59,21 @@ const dictionaries = {
     },
     blog: {
       title: "文章",
-      description: "记录关于构建、方法、AI 工作流与长期创作系统的思考。",
+      description: "分享 AI Coding、AI Agent、Skill、Context 管理和 AI Native 产品开发中的实践、判断与交付经验。",
+      seoTitle: "AI Coding、AI Agent 与产品开发文章",
       empty: "还没有可展示的文章。"
     },
     tools: {
       title: "项目",
-      description: "我正在持续推进的工具、实验与轻量产品。",
+      description: "展示 AI 应用开发中的工具、实验与轻量产品，记录真实使用场景、设计方法和交付成果。",
+      seoTitle: "AI 应用项目、工具与实验",
       empty: "还没有可展示的项目。",
       status: "状态"
     },
     about: {
       title: "关于",
-      intro: "你好，我是 T.J. Jia。我在 AI Native 语境下构建产品、重组流程，并持续把思考推进到真实交付。",
+      intro: "你好，我是贾铁军（T.J. Jia），AI Builder Lab 的创建者。我实践 AI 应用开发、AI Coding 与 AI Native 产品构建，分享真实项目与交付经验。",
+      seoTitle: "关于贾铁军（T.J. Jia）",
       blocks: [
         {
           title: "我在做什么",
@@ -92,7 +96,8 @@ const dictionaries = {
     home: {
       eyebrow: "AI Builder Lab / Build in public",
       title: "Make ideas real.",
-      intro: "Articles, products, and experiments—shared as they are built.",
+      intro: "Articles, products, and experiments in AI application development, AI coding, and hands-on projects—shared as they are built.",
+      seoTitle: "AI Application Development, AI Coding and Hands-on Projects",
       methodologyLink: "Read the essay",
       methodologyHref: "/blog/building-calm-ai-sites",
       projectsEyebrow: "Current focus",
@@ -143,18 +148,21 @@ const dictionaries = {
     },
     blog: {
       title: "Articles",
-      description: "Writing on building, method, AI workflows, and long-term creative systems.",
+      description: "Practical writing on AI coding, AI agents, skills, context management, and shipping AI-native products.",
+      seoTitle: "Articles on AI Coding, AI Agents and Product Development",
       empty: "No published posts yet."
     },
     tools: {
       title: "Projects",
-      description: "Active tools, experiments, and lightweight products I am building in public.",
+      description: "AI application projects, tools, and lightweight products, with real use cases, design decisions, and delivery outcomes.",
+      seoTitle: "AI Application Projects, Tools and Experiments",
       empty: "No published projects yet.",
       status: "Status"
     },
     about: {
       title: "About",
-      intro: "Hi, I'm T.J. Jia. I build products in an AI-native environment, redesign workflows, and keep pushing thinking toward real delivery.",
+      intro: "Hi, I'm T.J. Jia (贾铁军), creator of AI Builder Lab. I share hands-on experience in AI application development, AI coding, and shipping AI-native products.",
+      seoTitle: "About T.J. Jia",
       blocks: [
         {
           title: "What I build",

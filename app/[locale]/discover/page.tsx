@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ReadingList } from "@/components/reading-list";
 import { PageIntro } from "@/components/page-intro";
+import { buildMetadata } from "@/lib/metadata";
 import { getArticleDates, getArticlesByDate, getLatestArticleDate, loadReadingSites, previousShanghaiDate } from "@/lib/reading/store";
 import { locales, type Locale } from "@/lib/site-config";
 
@@ -14,7 +15,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  return { title: locale === "zh" ? "发现" : "Discover" };
+  return buildMetadata({ locale, title: locale === "zh" ? "AI 开发资讯与阅读发现" : "AI Development News and Reading", description: locale === "zh" ? "从关注的网站收集 AI 开发与技术文章，保留原文链接，按日期阅读。" : "Discover AI development and technology articles from the sites I follow, with original links and daily reading archives.", path: "/discover" });
 }
 
 function monthOffset(month: string, amount: number) {

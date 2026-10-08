@@ -1,5 +1,8 @@
 import { AboutRichText } from "@/components/about-rich-text";
 import { PageIntro } from "@/components/page-intro";
+import { JsonLd } from "@/components/json-ld";
+import { authorData } from "@/lib/structured-data";
+import { pageUrl } from "@/lib/metadata";
 import { getDictionary } from "@/lib/dictionary";
 import { buildMetadata } from "@/lib/metadata";
 import { siteConfig, locales, type Locale } from "@/lib/site-config";
@@ -18,7 +21,7 @@ export async function generateMetadata({
 
   return buildMetadata({
     locale,
-    title: dict.about.title,
+    title: dict.about.seoTitle,
     description: dict.about.intro,
     path: "/about"
   });
@@ -37,6 +40,7 @@ export default async function AboutPage({
 
   return (
     <main className="space-y-12 pb-8">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "ProfilePage", url: pageUrl(locale, "/about"), mainEntity: authorData(locale) }} />
       <section className="overflow-hidden rounded-[1.95rem] border border-[color:color-mix(in_srgb,var(--border-soft)_90%,transparent)] bg-[color:color-mix(in_srgb,var(--card-strong)_92%,transparent)] shadow-[var(--shadow-soft)]">
         <div className="grid gap-10 px-6 py-8 sm:px-10 sm:py-10 lg:grid-cols-[minmax(0,1.24fr)_minmax(18rem,0.76fr)] lg:px-12 lg:py-12">
           <div className="max-w-[42rem]">
@@ -100,7 +104,7 @@ export default async function AboutPage({
                   target="_blank"
                 >
                   <img
-                    alt={`${locale === "zh" ? channel.labelZh : channel.labelEn} QR code`}
+                    alt={locale === "zh" ? `${channel.labelZh}二维码，扫码访问` : `${channel.labelEn} QR code`}
                     className="mx-auto h-[5.1rem] w-[5.1rem] rounded-[0.75rem] border border-[color:color-mix(in_srgb,var(--border-faint)_96%,transparent)] bg-white object-cover"
                     height={82}
                     src={channel.qrSrc}

@@ -4,7 +4,7 @@ import { ArtifactStatusLabel, OutputLink, Progress } from "@/components/build/sh
 import { NextLive } from "@/components/build/next-live";
 import styles from "@/components/build/build.module.css";
 import { getDictionary } from "@/lib/dictionary";
-import { getBuildArtifact } from "@/lib/build/read";
+import { getBuildArtifact, getBuildLocales } from "@/lib/build/read";
 import { buildDate, nextLive } from "@/lib/build/model";
 import { buildMetadata } from "@/lib/metadata";
 import type { Locale } from "@/lib/site-config";
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ locale: Locale; artifact: string }> };
 export async function generateMetadata({ params }: Props) {
   const { locale, artifact } = await params; const a = await getBuildArtifact(locale, artifact);
-  return a ? buildMetadata({ locale, title: a.title, description: a.summary, path: `/build/${a.id}` }) : {};
+  return a ? buildMetadata({ locale, title: a.title, description: a.summary, path: `/build/${a.id}`, availableLocales: await getBuildLocales(a.id) }) : {};
 }
 export default async function ArtifactPage({ params }: Props) {
   const { locale, artifact } = await params; const a = await getBuildArtifact(locale, artifact);

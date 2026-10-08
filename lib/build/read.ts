@@ -55,6 +55,14 @@ export async function getBuildArtifact(locale: BuildLocale, id: string) {
   return (await readBuildArtifacts(locale)).find((a) => a.id === id) ?? null;
 }
 
+export async function getBuildLocales(id: string, logId?: string): Promise<BuildLocale[]> {
+  const entries = await Promise.all((["zh", "en"] as const).map(async (locale) => {
+    const artifact = await getBuildArtifact(locale, id);
+    return artifact && (!logId || artifact.logs.some((log) => log.id === logId)) ? locale : null;
+  }));
+  return entries.filter((locale): locale is BuildLocale => locale !== null);
+}
+
 export async function readBuildOutput(locale: BuildLocale, id: string, href: string, root = buildContentRoot()) {
   if (!isId(id) || !isOutputPath(href)) return null;
   const artifact = (await readBuildArtifacts(locale, root)).find((a) => a.id === id);

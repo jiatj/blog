@@ -17,6 +17,7 @@ type BaseFrontmatter = {
   cover?: string;
   seoTitle?: string;
   seoDescription?: string;
+  updated?: string;
 };
 
 export type PostFrontmatter = BaseFrontmatter & {
@@ -82,7 +83,8 @@ function normalizeSharedFrontmatter(
     draft: Boolean(frontmatter.draft),
     cover: frontmatter.cover,
     seoTitle: frontmatter.seoTitle,
-    seoDescription: frontmatter.seoDescription
+    seoDescription: frontmatter.seoDescription,
+    updated: frontmatter.updated ? ensureDateString(frontmatter.updated, "updated", filePath) : undefined
   };
 }
 
@@ -243,6 +245,12 @@ export async function getPostBySlug(locale: Locale, slug: string) {
 export async function getToolBySlug(locale: Locale, slug: string) {
   const tools = await getTools(locale);
   return tools.find((tool) => tool.slug === slug) ?? null;
+}
+
+export async function getContentLocales(collection: "post" | "tool", slug: string): Promise<Locale[]> {
+  const read = collection === "post" ? getPostBySlug : getToolBySlug;
+  const entries = await Promise.all((["zh", "en"] as const).map(async (locale) => (await read(locale, slug)) ? locale : null));
+  return entries.filter((locale): locale is Locale => locale !== null);
 }
 
 export async function renderMdx(source: string) {

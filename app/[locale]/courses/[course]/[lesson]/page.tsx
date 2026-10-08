@@ -22,6 +22,10 @@ export async function generateMetadata({ params }: Props) {
         title: `${page.title} · ${course.title}`,
         description: page.summary || course.summary,
         path: `/courses/${slug}/${lesson}`,
+        availableLocales: ["zh"],
+        type: "article",
+        image: course.cover,
+        modifiedTime: page.updated,
       })
     : {};
 }

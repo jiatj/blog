@@ -46,6 +46,7 @@ content/
 - `cover`
 - `seoTitle`
 - `seoDescription`
+- `updated`（真实修改日期，用于结构化数据和 sitemap）
 
 ### Tool
 
@@ -65,6 +66,9 @@ content/
 - `cover`
 - `seoTitle`
 - `seoDescription`
+- `updated`（真实修改日期，用于 sitemap）
+
+SEO 约定：`seoTitle` / `seoDescription` 只覆盖搜索和分享展示，不改正文标题与摘要；未填时自动回退。`cover` 用作分享图，无封面时使用站点 `/og`。同 slug 的已发布中英文内容互相声明 hreflang，草稿不声明、不进入 sitemap。文章详情按共同标签推荐最多三篇已发布文章；不要为了内链随意添加不相关标签。
 
 ## 3. 决策说明
 

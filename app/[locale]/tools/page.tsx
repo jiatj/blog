@@ -18,7 +18,7 @@ export async function generateMetadata({
 
   return buildMetadata({
     locale,
-    title: dict.tools.title,
+    title: dict.tools.seoTitle,
     description: dict.tools.description,
     path: "/tools"
   });

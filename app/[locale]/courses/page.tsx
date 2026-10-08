@@ -9,9 +9,10 @@ import styles from "@/components/courses/course.module.css";
 export const dynamic = "force-dynamic";
 export const metadata = buildMetadata({
   locale: "zh",
-  title: "课程",
-  description: "围绕真实问题动手实践，按自己的节奏阅读与学习。",
+  title: "AI 应用开发教程与项目实战课程",
+  description: "通过 AI Builder Lab 的公开讲义与练习，学习 AI 编程、AI 应用开发与项目实战，围绕真实问题一步步完成自己的作品。",
   path: "/courses",
+  availableLocales: ["zh"],
 });
 
 export default async function CoursesPage({
@@ -23,7 +24,7 @@ export default async function CoursesPage({
   const courses = await getCourses();
   return (
     <main className={styles.root}>
-      <PageIntro section="courses" title="从听课，到项目实战。" description="围绕真实问题，一步步完成自己的作品。" eyebrow="Learn by building" />
+      <PageIntro section="courses" title="从听课，到项目实战。" description="学习 AI 编程与 AI 应用开发，围绕真实问题，一步步完成自己的作品。" eyebrow="Learn by building" />
       <div className={styles.sectionLabel}>
         <span>课程目录</span>
         <span>{courses.length} 门课程 · 中文</span>

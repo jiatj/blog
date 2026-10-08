@@ -27,6 +27,12 @@
 
 ## Development Guide
 
+- SEO：主域名在 `lib/site-config.ts` 统一为 `https://www.tiejunjia.com`；页面元数据由 `lib/metadata.ts` 生成。文章/项目优先读取 `seoTitle`、`seoDescription`，未填时使用标题和摘要；`cover` 用于分享封面，无封面时使用 `/og`。可选 `updated` 用于文章修改时间和 sitemap，不使用请求时间伪造更新。
+- 结构化数据：文章和造物日志使用 BlogPosting，关于页使用 ProfilePage/Person，课程使用 Course，软件项目使用 SoftwareApplication；不生成未提供的资历、价格或评分。文章详情根据共享标签显示最多三篇相关文章，并提供项目和课程入口。
+- `/sitemap.xml` 按请求读取已发布内容；hreflang 仅关联实际存在的同 slug / ID 内容，课程和中文教育页只声明中文。`/robots.txt` 允许公开页面抓取并排除 `/api/`。验证：`npm run build` 后执行 `node scripts/smoke-seo.mjs`，检查生产 HTML、双语链接、结构化数据、分享图及域名跳转。
+
+- 百度统计在全站根布局安装，使用公开统计 ID `926416f5c40e7214d27178212a62edbd`；首次访问由百度脚本统计，客户端页面切换（包括查询参数变化）补报 `_trackPageview`。仅生产模式启用，`npm run dev` 不加载统计。
+
 - 导航：宽屏（1280px 起）显示首页、造物、课程、项目、文章、发现、关于；手机、平板和窄屏显示首页、造物、课程、项目、更多，展开更多可进入文章、发现、关于。语言与主题保留在导航右侧，课程仍只提供中文。
 - 栏目页头：共用 `components/page-intro.tsx` 的装饰 SVG，图案、背景和分隔线统一由主蓝色 `--accent` / `--accent-ink` 派生深浅变化，自动适配深浅主题；首页沿用原有图案。栏目标题统一使用站点字体；文章详情最大宽度为 60rem，手机减少内边距。
 - 导航与阅读人工验收：检查 320/390/768/1280px、中英文和深浅主题；更多能点击开关、点击外部关闭、Escape 关闭并回到按钮，跳转后关闭；确认无整页横向滚动，正文和图表可读。
@@ -49,6 +55,11 @@
 - 阅读归档测试：`npm run test:reading`。默认 SQLite 文件为 `.portal-data/reading/reading.sqlite`；页面默认展示不晚于昨日的最近一次收录，收藏和删除只保存在当前浏览器。
 
 ## Release Guide
+
+- SEO 上线验收：构建并重启后检查 `/robots.txt`、`/sitemap.xml`、`/og`；确认 canonical、分享 URL 和 sitemap 均使用 `https://www.tiejunjia.com`。Next.js 对 Host 为 `tiejunjia.com` 的请求永久重定向（308）到 www，保留路径和查询参数；反向代理若改写 Host，应在代理/CDN 配置同等规则，并确认两个域名的 DNS 与 HTTPS 证书可用。具体代理命令：TODO。
+- 在 Google Search Console、Bing Webmaster Tools 和百度搜索资源平台验证域名并提交 `https://www.tiejunjia.com/sitemap.xml`；用 Rich Results Test 检查文章和课程。这些操作需要站长账号，代码构建不能证明已经收录或获得富媒体结果；上线后观察收录、查询词、展示量和点击率。Core Web Vitals 需用实际线上数据另行验收。
+
+- 百度统计验收：部署后用浏览器检查 `hm.baidu.com/hm.js?926416f5c40e7214d27178212a62edbd` 加载成功，打开多个页面并通过导航切换，再到百度统计后台查看数据。按提供的安装说明通常约 20 分钟后可查看；浏览器拦截插件或网络限制可能导致请求缺失。本地 `npm run start` 也属于生产模式，会发送统计请求。
 
 ### 构建并打包代码
 

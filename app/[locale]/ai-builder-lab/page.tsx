@@ -41,10 +41,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   return buildMetadata({
-    locale,
-    title: "AI Builder Lab｜面向未来的 AI 原生教育",
+    locale: "zh",
+    title: "面向未来的 AI 原生教育",
     description: "AI Builder Lab 提出能力三角模型，培养孩子的 AI 思维、审美力和判断力，让孩子在真实项目中学习、创造与交付。",
-    path: "/ai-builder-lab"
+    path: "/ai-builder-lab",
+    availableLocales: ["zh"]
   });
 }
 
